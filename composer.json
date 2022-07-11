@@ -11,6 +11,7 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.7",
+        "spatie/laravel-permission": "^5.5",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
