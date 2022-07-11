@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "balajidharma/laravel-vue-admin-panel",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "The Laravel Vue Admin Panel - Laravel Vue Admin Boilerplate.",
+    "keywords": ["framework", "laravel", "boilerplate", "admin panel"],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
