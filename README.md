@@ -10,8 +10,9 @@
 - [Laravel 9](https://github.com/laravel/framework)
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission)
 - [Laravel Breeze](https://github.com/laravel/breeze)
+- [Vue.js](https://vuejs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
-
+- [Inertiajs](https://inertiajs.com/)
 
 ## Installation
 - To get started, you need to install [Docker Desktop](https://www.docker.com/products/docker-desktop).
