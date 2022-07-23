@@ -10,6 +10,6 @@ class Role extends OriginalRole
         'name',
         'guard_name',
         'updated_at',
-        'created_at'
+        'created_at',
     ];
 }

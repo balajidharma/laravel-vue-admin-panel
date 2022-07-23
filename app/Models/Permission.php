@@ -10,6 +10,6 @@ class Permission extends OriginalPermission
         'name',
         'guard_name',
         'updated_at',
-        'created_at'
+        'created_at',
     ];
 }

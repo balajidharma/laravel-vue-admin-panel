@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Admin\User\CreateUser;
+use App\Actions\Admin\User\UpdateUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
-use App\Actions\Admin\User\CreateUser;
-use App\Actions\Admin\User\UpdateUser;
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
-         $this->middleware('can:user list', ['only' => ['index','show']]);
-         $this->middleware('can:user create', ['only' => ['create','store']]);
-         $this->middleware('can:user edit', ['only' => ['edit','update']]);
-         $this->middleware('can:user delete', ['only' => ['destroy']]);
+        $this->middleware('can:user list', ['only' => ['index', 'show']]);
+        $this->middleware('can:user create', ['only' => ['create', 'store']]);
+        $this->middleware('can:user edit', ['only' => ['edit', 'update']]);
+        $this->middleware('can:user delete', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +33,7 @@ class UserController extends Controller
         $users = (new User)->newQuery();
 
         if (request()->has('search')) {
-            $users->where('name', 'Like', '%' . request()->input('search') . '%');
+            $users->where('name', 'Like', '%'.request()->input('search').'%');
         }
 
         if (request()->query('sort')) {
@@ -49,7 +50,7 @@ class UserController extends Controller
 
         $users = $users->paginate(5);
 
-        return view('admin.user.index',compact('users'))
+        return view('admin.user.index', compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -61,6 +62,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
+
         return view('admin.user.create', compact('roles'));
     }
 
@@ -68,7 +70,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\Admin\StoreUserRequest  $request
-     * @param  \App\Actions\Admin\User\CreateUser $createUser
+     * @param  \App\Actions\Admin\User\CreateUser  $createUser
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUserRequest $request, CreateUser $createUser)
@@ -89,6 +91,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $userHasRoles = array_column(json_decode($user->roles, true), 'id');
+
         return view('admin.user.show', compact('user', 'roles', 'userHasRoles'));
     }
 
@@ -111,7 +114,7 @@ class UserController extends Controller
      *
      * @param  \App\Http\Requests\Admin\UpdateUserRequest  $request
      * @param  \App\Models\User  $user
-     * @param  \App\Actions\Admin\User\UpdateUser $updateUser
+     * @param  \App\Actions\Admin\User\UpdateUser  $updateUser
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUserRequest $request, User $user, UpdateUser $updateUser)
@@ -159,9 +162,9 @@ class UserController extends Controller
         $user = \Auth::user()->update($request->except(['_token']));
 
         if ($user) {
-            $message = "Account updated successfully.";
+            $message = 'Account updated successfully.';
         } else {
-            $message = "Error while saving. Please try again.";
+            $message = 'Error while saving. Please try again.';
         }
 
         return redirect()->route('admin.account.info')->with('account_message', __($message));
@@ -179,7 +182,9 @@ class UserController extends Controller
         ]);
 
         $validator->after(function ($validator) use ($request) {
-            if ($validator->failed()) return;
+            if ($validator->failed()) {
+                return;
+            }
             if (! Hash::check($request->input('old_password'), \Auth::user()->password)) {
                 $validator->errors()->add(
                     'old_password', __('Old password is incorrect.')
@@ -194,9 +199,9 @@ class UserController extends Controller
         ]);
 
         if ($user) {
-            $message = "Password updated successfully.";
+            $message = 'Password updated successfully.';
         } else {
-            $message = "Error while saving. Please try again.";
+            $message = 'Error while saving. Please try again.';
         }
 
         return redirect()->route('admin.account.info')->with('password_message', __($message));

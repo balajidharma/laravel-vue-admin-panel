@@ -5,19 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRoleRequest;
 use App\Http\Requests\Admin\UpdateRoleRequest;
-use App\Models\Role;
 use App\Models\Permission;
-use Illuminate\Http\Request;
+use App\Models\Role;
 
 class RoleController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
-         $this->middleware('can:role list', ['only' => ['index','show']]);
-         $this->middleware('can:role create', ['only' => ['create','store']]);
-         $this->middleware('can:role edit', ['only' => ['edit','update']]);
-         $this->middleware('can:role delete', ['only' => ['destroy']]);
+        $this->middleware('can:role list', ['only' => ['index', 'show']]);
+        $this->middleware('can:role create', ['only' => ['create', 'store']]);
+        $this->middleware('can:role edit', ['only' => ['edit', 'update']]);
+        $this->middleware('can:role delete', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +28,7 @@ class RoleController extends Controller
         $roles = (new Role)->newQuery();
 
         if (request()->has('search')) {
-            $roles->where('name', 'Like', '%' . request()->input('search') . '%');
+            $roles->where('name', 'Like', '%'.request()->input('search').'%');
         }
 
         if (request()->query('sort')) {
@@ -45,7 +45,7 @@ class RoleController extends Controller
 
         $roles = $roles->paginate(5);
 
-        return view('admin.role.index',compact('roles'))
+        return view('admin.role.index', compact('roles'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -57,6 +57,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all();
+
         return view('admin.role.create', compact('permissions'));
     }
 
@@ -70,12 +71,12 @@ class RoleController extends Controller
     {
         $role = Role::create($request->all());
 
-        if(! empty($request->permissions)) {
+        if (! empty($request->permissions)) {
             $role->givePermissionTo($request->permissions);
         }
 
         return redirect()->route('role.index')
-                        ->with('message','Role created successfully.');
+                        ->with('message', 'Role created successfully.');
     }
 
     /**
@@ -88,6 +89,7 @@ class RoleController extends Controller
     {
         $permissions = Permission::all();
         $roleHasPermissions = array_column(json_decode($role->permissions, true), 'id');
+
         return view('admin.role.show', compact('role', 'permissions', 'roleHasPermissions'));
     }
 
@@ -119,7 +121,7 @@ class RoleController extends Controller
         $role->syncPermissions($permissions);
 
         return redirect()->route('role.index')
-                        ->with('message','Role updated successfully.');
+                        ->with('message', 'Role updated successfully.');
     }
 
     /**
@@ -131,7 +133,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-    
+
         return redirect()->route('role.index')
                         ->with('message', __('Role deleted successfully'));
     }
