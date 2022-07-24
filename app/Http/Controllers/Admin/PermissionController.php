@@ -82,7 +82,9 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission)
     {
-        return view('admin.permission.show', compact('permission'));
+        return Inertia::render('Admin/Permission/Show', [
+            'permission' => $permission,
+        ]);
     }
 
     /**
@@ -94,7 +96,7 @@ class PermissionController extends Controller
     public function edit(Permission $permission)
     {
         return Inertia::render('Admin/Permission/Edit', [
-            'permission' => $permission
+            'permission' => $permission,
         ]);
     }
 
