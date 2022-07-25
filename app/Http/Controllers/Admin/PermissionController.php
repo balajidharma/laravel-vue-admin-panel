@@ -47,6 +47,7 @@ class PermissionController extends Controller
 
         return Inertia::render('Admin/Permission/Index', [
             'permissions' => $permissions,
+            'filters' => request()->all('search'),
         ]);
     }
 

@@ -9,10 +9,14 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  filters: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 
 const form = useForm({
-    search: null,
+    search: props.filters.search,
 })
 
 const formDelete = useForm({})
