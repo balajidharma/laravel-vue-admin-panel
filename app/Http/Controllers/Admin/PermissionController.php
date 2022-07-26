@@ -43,7 +43,7 @@ class PermissionController extends Controller
             $permissions->latest();
         }
 
-        $permissions = $permissions->paginate(5)->onEachSide(2);
+        $permissions = $permissions->paginate(5)->onEachSide(2)->appends(request()->query());
 
         return Inertia::render('Admin/Permission/Index', [
             'permissions' => $permissions,
