@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePermissionRequest;
 use App\Http\Requests\Admin\UpdatePermissionRequest;
 use App\Models\Permission;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PermissionController extends Controller
@@ -48,6 +49,11 @@ class PermissionController extends Controller
         return Inertia::render('Admin/Permission/Index', [
             'permissions' => $permissions,
             'filters' => request()->all('search'),
+            'can' => [
+                'create' => Auth::user()->can('permission create'),
+                'edit' => Auth::user()->can('permission edit'),
+                'delete' => Auth::user()->can('permission delete'),
+            ]
         ]);
     }
 

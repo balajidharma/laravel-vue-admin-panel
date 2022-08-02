@@ -14,6 +14,10 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  can: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
 const form = useForm({
@@ -60,7 +64,7 @@ function destroy(id) {
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 bg-white border-b border-gray-200">
             <div class="flex flex-col mt-8">
-              <div class="d-print-none with-border mb-8">
+              <div v-if="can.create" class="d-print-none with-border mb-8">
                 <Link
                   :href="route('permission.create')"
                   class="
@@ -158,6 +162,7 @@ function destroy(id) {
                           <Sort label="Name" attribute="name" />
                         </th>
                         <th
+                          v-if="can.edit || can.delete"
                           class="
                             py-2
                             px-4
@@ -203,6 +208,7 @@ function destroy(id) {
                           </div>
                         </td>
                         <td
+                          v-if="can.edit || can.delete"
                           class="
                             border-b border-slate-100
                             dark:border-slate-700
@@ -214,6 +220,7 @@ function destroy(id) {
                         >
                           <div class="flex">
                             <Link
+                              v-if="can.edit"
                               :href="route('permission.edit', permission.id)"
                               class="
                                 inline-flex
@@ -245,6 +252,7 @@ function destroy(id) {
                               Edit
                             </Link>
                             <BreezeButton
+                              v-if="can.delete"
                               class="px-4 py-2 text-white bg-red-600"
                               @click="destroy(permission.id)"
                             >
