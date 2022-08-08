@@ -1,42 +1,79 @@
 <script setup>
-import { computed } from 'vue';
-import BreezeButton from '@/Components/Button.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { useForm, Head, Link } from '@inertiajs/inertia-vue3'
+import { computed } from 'vue'
+import LayoutGuest from '@/Layouts/LayoutGuest.vue'
+import SectionFullScreen from '@/Components/SectionFullScreen.vue'
+import CardBox from '@/Components/CardBox.vue'
+import FormField from '@/Components/FormField.vue'
+import BaseDivider from '@/Components/BaseDivider.vue'
+import BaseButton from '@/Components/BaseButton.vue'
+import FormValidationErrors from '@/Components/FormValidationErrors.vue'
+import NotificationBarInCard from '@/Components/NotificationBarInCard.vue'
+import BaseLevel from '@/Components/BaseLevel.vue'
 
 const props = defineProps({
-    status: String,
-});
+  status: {
+    type: String,
+    default: null
+  }
+})
 
-const form = useForm();
+const form = useForm()
+
+const verificationLinkSent = computed(() => props.status === 'verification-link-sent')
 
 const submit = () => {
-    form.post(route('verification.send'));
-};
-
-const verificationLinkSent = computed(() => props.status === 'verification-link-sent');
+  form.post(route('verification.send'))
+}
 </script>
 
 <template>
-    <BreezeGuestLayout>
-        <Head title="Email Verification" />
+  <LayoutGuest>
+    <Head title="Email Verification" />
 
-        <div class="mb-4 text-sm text-gray-600">
+    <SectionFullScreen
+      v-slot="{ cardClass }"
+      bg="purplePink"
+    >
+      <CardBox
+        :class="cardClass"
+        form
+        @submit.prevent="submit"
+      >
+        <FormValidationErrors />
+
+        <NotificationBarInCard 
+          v-if="verificationLinkSent"
+          color="info"
+        >
+          A new verification link has been sent to the email address you provided during registration.
+        </NotificationBarInCard>
+
+        <FormField>
+          <div class="mb-4 text-sm text-gray-600">
             Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.
-        </div>
+          </div>
+        </FormField>
 
-        <div class="mb-4 font-medium text-sm text-green-600" v-if="verificationLinkSent" >
-            A new verification link has been sent to the email address you provided during registration.
-        </div>
+        <BaseDivider />
 
-        <form @submit.prevent="submit">
-            <div class="mt-4 flex items-center justify-between">
-                <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Resend Verification Email
-                </BreezeButton>
-
-                <Link :href="route('logout')" method="post" as="button" class="underline text-sm text-gray-600 hover:text-gray-900">Log Out</Link>
-            </div>
-        </form>
-    </BreezeGuestLayout>
+        <BaseLevel>
+          <BaseButton
+            type="submit"
+            color="info"
+            label="Resend Verification Email"
+            :class="{ 'opacity-25': form.processing }"
+            :disabled="form.processing"
+          />
+          <Link
+            :href="route('logout')"
+            method="post"
+            as="button"
+          >
+            Logout
+          </Link>
+        </BaseLevel>
+      </CardBox>
+    </SectionFullScreen>
+  </LayoutGuest>
 </template>

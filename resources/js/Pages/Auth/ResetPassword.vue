@@ -1,57 +1,111 @@
 <script setup>
-import BreezeButton from '@/Components/Button.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
-import BreezeInput from '@/Components/Input.vue';
-import BreezeLabel from '@/Components/Label.vue';
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
-import { Head, useForm } from '@inertiajs/inertia-vue3';
+import { useForm, Head, Link } from '@inertiajs/inertia-vue3'
+import { mdiEmail, mdiFormTextboxPassword } from '@mdi/js'
+import LayoutGuest from '@/Layouts/LayoutGuest.vue'
+import SectionFullScreen from '@/Components/SectionFullScreen.vue'
+import CardBox from '@/Components/CardBox.vue'
+import FormField from '@/Components/FormField.vue'
+import FormControl from '@/Components/FormControl.vue'
+import BaseDivider from '@/Components/BaseDivider.vue'
+import BaseButton from '@/Components/BaseButton.vue'
+import FormValidationErrors from '@/Components/FormValidationErrors.vue'
 
 const props = defineProps({
-    email: String,
-    token: String,
-});
+  email: {
+    type: String,
+    default: null
+  },
+  token: {
+    type: String,
+    default: null
+  }
+})
 
 const form = useForm({
-    token: props.token,
-    email: props.email,
-    password: '',
-    password_confirmation: '',
-});
+  token: props.token,
+  email: props.email,
+  password: '',
+  password_confirmation: '',
+})
 
 const submit = () => {
-    form.post(route('password.update'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-};
+  form
+    .post(route('password.update'), {
+      onFinish: () => form.reset('password', 'password_confirmation'),
+    })
+}
 </script>
 
 <template>
-    <BreezeGuestLayout>
-        <Head title="Reset Password" />
+  <LayoutGuest>
+    <Head title="Reset Password" />
 
-        <BreezeValidationErrors class="mb-4" />
+    <SectionFullScreen
+      v-slot="{ cardClass }"
+      bg="purplePink"
+    >
+      <CardBox
+        :class="cardClass"
+        form
+        @submit.prevent="submit"
+      >
+        <FormValidationErrors />
 
-        <form @submit.prevent="submit">
-            <div>
-                <BreezeLabel for="email" value="Email" />
-                <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
-            </div>
+        <FormField
+          label="Email"
+          label-for="email"
+          help="Please enter your email"
+        >
+          <FormControl
+            v-model="form.email"
+            :icon="mdiEmail"
+            autocomplete="email"
+            type="email"
+            id="email"
+            required
+          />
+        </FormField>
 
-            <div class="mt-4">
-                <BreezeLabel for="password" value="Password" />
-                <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
-            </div>
+        <FormField
+          label="Password"
+          label-for="password"
+          help="Please enter new password"
+        >
+          <FormControl
+            v-model="form.password"
+            :icon="mdiFormTextboxPassword"
+            type="password"
+            autocomplete="new-password"
+            id="password"
+            required
+          />
+        </FormField>
 
-            <div class="mt-4">
-                <BreezeLabel for="password_confirmation" value="Confirm Password" />
-                <BreezeInput id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
-            </div>
+        <FormField
+          label="Confirm Password"
+          label-for="password_confirmation"
+          help="Please confirm new password"
+        >
+          <FormControl
+            v-model="form.password_confirmation"
+            :icon="mdiFormTextboxPassword"
+            type="password"
+            autocomplete="new-password"
+            id="password_confirmation"
+            required
+          />
+        </FormField>
 
-            <div class="flex items-center justify-end mt-4">
-                <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Reset Password
-                </BreezeButton>
-            </div>
-        </form>
-    </BreezeGuestLayout>
+        <BaseDivider />
+
+        <BaseButton
+          type="submit"
+          color="info"
+          label="Reset password"
+          :class="{ 'opacity-25': form.processing }"
+          :disabled="form.processing"
+        />
+      </CardBox>
+    </SectionFullScreen>
+  </LayoutGuest>
 </template>

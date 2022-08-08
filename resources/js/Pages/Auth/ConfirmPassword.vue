@@ -1,43 +1,78 @@
 <script setup>
-import BreezeButton from '@/Components/Button.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
-import BreezeInput from '@/Components/Input.vue';
-import BreezeLabel from '@/Components/Label.vue';
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
-import { Head, useForm } from '@inertiajs/inertia-vue3';
+import { useForm, Head } from '@inertiajs/inertia-vue3'
+import { ref } from 'vue'
+import LayoutGuest from '@/Layouts/LayoutGuest.vue'
+import SectionFullScreen from '@/Components/SectionFullScreen.vue'
+import CardBox from '@/Components/CardBox.vue'
+import FormControl from '@/Components/FormControl.vue'
+import FormField from '@/Components/FormField.vue'
+import BaseDivider from '@/Components/BaseDivider.vue'
+import BaseButton from '@/Components/BaseButton.vue'
+import FormValidationErrors from '@/Components/FormValidationErrors.vue'
 
 const form = useForm({
-    password: '',
-});
+  password: ''
+})
+
+const passwordInput = ref(null)
 
 const submit = () => {
-    form.post(route('password.confirm'), {
-        onFinish: () => form.reset(),
-    })
-};
+  form.post(route('password.confirm'), {
+    onFinish: () => {
+      form.reset()
+
+      passwordInput.value?.focus()
+    }
+  })
+}
 </script>
 
 <template>
-    <BreezeGuestLayout>
-        <Head title="Confirm Password" />
+  <LayoutGuest>
+    <Head title="Secure Area" />
+    
+    <SectionFullScreen
+      v-slot="{ cardClass }"
+      bg="purplePink"
+    >
+      <CardBox
+        :class="cardClass"
+        form
+        @submit.prevent="submit"
+      >
+        <FormValidationErrors />
 
-        <div class="mb-4 text-sm text-gray-600">
+        <FormField>
+          <div class="mb-4 text-sm text-gray-600">
             This is a secure area of the application. Please confirm your password before continuing.
-        </div>
+          </div>
+        </FormField>
 
-        <BreezeValidationErrors class="mb-4" />
+        <FormField
+          label="Password"
+          label-for="password"
+          help="Please enter your password to confirm"
+        >
+          <FormControl
+            id="password"
+            @set-ref="passwordInput = $event"
+            v-model="form.password"
+            type="password"
+            required
+            autocomplete="current-password"
+          />
+        </FormField>
 
-        <form @submit.prevent="submit">
-            <div>
-                <BreezeLabel for="password" value="Password" />
-                <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" autofocus />
-            </div>
+        <BaseDivider />
 
-            <div class="flex justify-end mt-4">
-                <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Confirm
-                </BreezeButton>
-            </div>
-        </form>
-    </BreezeGuestLayout>
+        <BaseButton
+          type="submit"
+          color="info"
+          label="Confirm"
+          :class="{ 'opacity-25': form.processing }"
+          :disabled="form.processing"
+        />
+      </CardBox>
+    </SectionFullScreen>
+  </LayoutGuest>
 </template>
