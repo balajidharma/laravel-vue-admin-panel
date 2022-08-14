@@ -13,6 +13,7 @@
 - [Vue.js](https://vuejs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Inertiajs](https://inertiajs.com/)
+- [Admin One - Admin Dashboard](https://github.com/justboil/admin-one-vue-tailwind)
 
 ## Installation
 - To get started, you need to install [Docker Desktop](https://www.docker.com/products/docker-desktop).
@@ -31,13 +32,15 @@
 
 ## Screenshots
 <p align="center">
-	<img src="https://miro.medium.com/max/700/1*Wk4WaomlQ4v_GKUY2AhcXw.png" >
+	<img src="https://user-images.githubusercontent.com/6037466/184546912-efd044ad-cb66-4057-9eee-e9c53447763b.png" >
 	<br/><br/>
-	<img src="https://miro.medium.com/max/700/1*3eXlUx9DnzjgXX_1PJ_qWw.png" >
+	<img src="https://user-images.githubusercontent.com/6037466/184546928-0de1d84a-4dd9-4f7b-a3ac-b848209d0aef.png" >
 	<br/><br/>
-	<img src="https://miro.medium.com/max/700/1*jtzIchs6RP-leKp3nugdZw.png" >
+	<img src="https://user-images.githubusercontent.com/6037466/184547401-1c481008-e013-4ba0-b9a8-3eaf3ff7b9a1.png" >
     <br/><br/>
-	<img src="https://miro.medium.com/max/700/1*4LFqQCnriBDipDpbvcnCzw.png">
+	<img src="https://user-images.githubusercontent.com/6037466/184547433-25f6a5a6-4e53-4448-948a-82f18a58d84c.png">
+	<br/><br/>
+	<img src="https://user-images.githubusercontent.com/6037466/184547446-d482df44-0835-4a37-8482-83d5279269fb.png">
 </p>
 
 ## License
