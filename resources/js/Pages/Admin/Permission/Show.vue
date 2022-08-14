@@ -28,7 +28,7 @@ const props = defineProps({
         main
       >
         <BaseButton
-          :routeName="route('permission.index')"
+          :route-name="route('permission.index')"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"

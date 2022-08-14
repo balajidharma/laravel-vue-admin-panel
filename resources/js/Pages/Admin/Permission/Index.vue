@@ -131,7 +131,7 @@ function destroy(id) {
                 <BaseButtons type="justify-start lg:justify-end" no-wrap>
                   <BaseButton
                     v-if="can.edit"
-                    :routeName="route('permission.edit', permission.id)"
+                    :route-name="route('permission.edit', permission.id)"
                     color="info"
                     :icon="mdiSquareEditOutline"
                     small

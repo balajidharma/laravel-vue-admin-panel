@@ -129,7 +129,7 @@ const submit = () => {
             :disabled="form.processing"
           />
           <BaseButton
-            route-name="login"
+            :route-name="route('login')"
             color="info"
             outline
             label="Login"

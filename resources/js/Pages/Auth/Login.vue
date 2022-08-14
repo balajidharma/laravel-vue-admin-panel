@@ -111,7 +111,7 @@ const submit = () => {
             />
             <BaseButton
               v-if="canResetPassword"
-              route-name="password.request"
+              :route-name="route('password.request')"
               color="info"
               outline
               label="Remind"
