@@ -55,6 +55,7 @@ function destroy(id) {
         main
       >
         <BaseButton
+          v-if="can.delete"
           :route-name="route('permission.create')"
           :icon="mdiPlus"
           label="Add"
