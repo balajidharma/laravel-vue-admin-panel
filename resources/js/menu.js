@@ -2,13 +2,9 @@ import {
   mdiAccountCircle,
   mdiMonitor,
   mdiGithub,
-  mdiLock,
-  mdiAlertCircle,
-  mdiSquareEditOutline,
-  mdiTable,
-  mdiViewList,
-  mdiTelevisionGuide,
-  mdiResponsive,
+  mdiAccountKey,
+  mdiAccountEye,
+  mdiAccountGroup,
   mdiPalette
 } from '@mdi/js'
 
@@ -20,8 +16,18 @@ export default [
   },
   {
     route: 'permission.index',
-    icon: mdiMonitor,
+    icon: mdiAccountKey,
     label: 'Permissions'
+  },
+  {
+    route: 'role.index',
+    icon: mdiAccountEye,
+    label: 'Roles'
+  },
+  {
+    route: 'user.index',
+    icon: mdiAccountGroup,
+    label: 'Users'
   },
   {
     href: 'https://github.com/balajidharma/laravel-vue-admin-panel',

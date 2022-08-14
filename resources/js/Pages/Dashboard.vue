@@ -22,7 +22,7 @@ import NotificationBar from '@/Components/NotificationBar.vue'
 import BaseButton from '@/Components/BaseButton.vue'
 import CardBoxTransaction from '@/Components/CardBoxTransaction.vue'
 import CardBoxClient from '@/Components/CardBoxClient.vue'
-import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
+import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue'
 import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue'
 import SectionBannerStarOnGitHub from '@/Components/SectionBannerStarOnGitHub.vue'
 const chartData = ref(null)

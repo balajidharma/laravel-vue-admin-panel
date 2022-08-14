@@ -112,7 +112,7 @@ const componentClass = computed(() => {
   <component
     :is="is"
     :class="componentClass"
-    :href="routeName ? route(routeName) : href"
+    :href="routeName ? routeName : href"
     :type="computedType"
     :target="target"
     :disabled="disabled"
