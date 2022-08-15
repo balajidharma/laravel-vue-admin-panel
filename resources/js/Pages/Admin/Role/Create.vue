@@ -10,33 +10,35 @@ import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.
 import CardBox from "@/Components/CardBox.vue";
 import FormField from '@/Components/FormField.vue';
 import FormControl from '@/Components/FormControl.vue';
+import FormCheckRadioGroup from '@/Components/FormCheckRadioGroup.vue'
+import BaseDivider from '@/Components/BaseDivider.vue'
 import BaseButton from '@/Components/BaseButton.vue';
 import BaseButtons from '@/Components/BaseButtons.vue'
 
 const props = defineProps({
-  permission: {
+  permissions: {
     type: Object,
     default: () => ({}),
   },
 });
 
 const form = useForm({
-  _method: 'put',
-  name: props.permission.name,
+  name: '',
+  permissions: ''
 });
 </script>
 
 <template>
   <LayoutAuthenticated>
-    <Head title="Update permission" />
+    <Head title="Add role" />
     <SectionMain>
       <SectionTitleLineWithButton
         :icon="mdiAccountKey"
-        title="Update permission"
+        title="Add role"
         main
       >
         <BaseButton
-          :route-name="route('permission.index')"
+          :route-name="route('role.index')"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"
@@ -46,7 +48,7 @@ const form = useForm({
       </SectionTitleLineWithButton>
       <CardBox
         form
-        @submit.prevent="form.post(route('permission.update', this.permission.id))"
+        @submit.prevent="form.post(route('role.store'))"
       >
         <FormField
           label="Name"
@@ -63,6 +65,21 @@ const form = useForm({
             </div>
           </FormControl>
         </FormField>
+
+        <BaseDivider />
+
+        <FormField
+          label="Permissions"
+          wrap-body
+        >
+          <FormCheckRadioGroup
+            v-model="form.permissions"
+            name="permissions"
+            is-column
+            :options="props.permissions"
+          />
+        </FormField>
+
         <template #footer>
           <BaseButtons>
             <BaseButton

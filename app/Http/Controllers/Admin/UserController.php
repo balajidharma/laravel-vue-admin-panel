@@ -12,6 +12,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -48,10 +50,17 @@ class UserController extends Controller
             $users->latest();
         }
 
-        $users = $users->paginate(5);
+        $users = $users->paginate(5)->onEachSide(2)->appends(request()->query());
 
-        return view('admin.user.index', compact('users'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return Inertia::render('Admin/User/Index', [
+            'users' => $users,
+            'filters' => request()->all('search'),
+            'can' => [
+                'create' => Auth::user()->can('user create'),
+                'edit' => Auth::user()->can('user edit'),
+                'delete' => Auth::user()->can('user delete'),
+            ]
+        ]);
     }
 
     /**
@@ -61,9 +70,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::all()->pluck("name","id");
 
-        return view('admin.user.create', compact('roles'));
+        return Inertia::render('Admin/User/Create', [
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -89,10 +100,14 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $roles = Role::all();
+        $roles = Role::all()->pluck("name","id");
         $userHasRoles = array_column(json_decode($user->roles, true), 'id');
 
-        return view('admin.user.show', compact('user', 'roles', 'userHasRoles'));
+        return Inertia::render('Admin/User/Show', [
+            'user' => $user,
+            'roles' => $roles,
+            'userHasRoles' => $userHasRoles,
+        ]);
     }
 
     /**
@@ -103,10 +118,14 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::all();
+        $roles = Role::all()->pluck("name","id");
         $userHasRoles = array_column(json_decode($user->roles, true), 'id');
 
-        return view('admin.user.edit', compact('user', 'roles', 'userHasRoles'));
+        return Inertia::render('Admin/User/Edit', [
+            'user' => $user,
+            'roles' => $roles,
+            'userHasRoles' => $userHasRoles,
+        ]);
     }
 
     /**
@@ -146,7 +165,9 @@ class UserController extends Controller
     {
         $user = \Auth::user();
 
-        return view('admin.user.account_info', compact('user'));
+        return Inertia::render('Admin/User/AccountInfo', [
+            'user' => $user,
+        ]);
     }
 
     /**

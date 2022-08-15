@@ -47,7 +47,7 @@ const form = useForm({
           <FormControl
             v-model="form.name"
             type="text"
-            placeholder="Name"
+            placeholder="Enter Name"
             :error="form.errors.name"
           >
             <div class="text-red-400 text-sm" v-if="form.errors.name">

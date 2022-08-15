@@ -44,7 +44,10 @@ const props = defineProps({
   borderless: Boolean,
   transparent: Boolean,
   ctrlKFocus: Boolean,
-  error: Boolean
+  error: {
+    type: String,
+    default: null
+  }
 })
 
 const emit = defineEmits(['update:modelValue', 'setRef'])

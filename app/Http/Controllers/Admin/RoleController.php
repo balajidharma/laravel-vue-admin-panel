@@ -7,6 +7,8 @@ use App\Http\Requests\Admin\StoreRoleRequest;
 use App\Http\Requests\Admin\UpdateRoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class RoleController extends Controller
 {
@@ -43,10 +45,17 @@ class RoleController extends Controller
             $roles->latest();
         }
 
-        $roles = $roles->paginate(5);
+        $roles = $roles->paginate(5)->onEachSide(2)->appends(request()->query());
 
-        return view('admin.role.index', compact('roles'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return Inertia::render('Admin/Role/Index', [
+            'roles' => $roles,
+            'filters' => request()->all('search'),
+            'can' => [
+                'create' => Auth::user()->can('role create'),
+                'edit' => Auth::user()->can('role edit'),
+                'delete' => Auth::user()->can('role delete'),
+            ]
+        ]);
     }
 
     /**
@@ -56,9 +65,11 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::all();
+        $permissions = Permission::all()->pluck("name","id");
 
-        return view('admin.role.create', compact('permissions'));
+        return Inertia::render('Admin/Role/Create', [
+            'permissions' => $permissions,
+        ]);
     }
 
     /**
@@ -87,10 +98,14 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        $permissions = Permission::all();
+        $permissions = Permission::all()->pluck("name","id");
         $roleHasPermissions = array_column(json_decode($role->permissions, true), 'id');
 
-        return view('admin.role.show', compact('role', 'permissions', 'roleHasPermissions'));
+        return Inertia::render('Admin/Role/Show', [
+            'role' => $role,
+            'permissions' => $permissions,
+            'roleHasPermissions' => $roleHasPermissions,
+        ]);
     }
 
     /**
@@ -101,10 +116,14 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        $permissions = Permission::all();
+        $permissions = Permission::all()->pluck("name","id");
         $roleHasPermissions = array_column(json_decode($role->permissions, true), 'id');
 
-        return view('admin.role.edit', compact('role', 'permissions', 'roleHasPermissions'));
+        return Inertia::render('Admin/Role/Edit', [
+            'role' => $role,
+            'permissions' => $permissions,
+            'roleHasPermissions' => $roleHasPermissions,
+        ]);
     }
 
     /**

@@ -5,7 +5,7 @@ import { mdiAccount, mdiEmail, mdiFormTextboxPassword } from '@mdi/js'
 import LayoutGuest from '@/Layouts/LayoutGuest.vue'
 import SectionFullScreen from '@/Components/SectionFullScreen.vue'
 import CardBox from '@/Components/CardBox.vue'
-import FormCheckRadioPicker from '@/Components/FormCheckRadioPicker.vue'
+import FormCheckRadioGroup from '@/Components/FormCheckRadioGroup.vue'
 import FormField from '@/Components/FormField.vue'
 import FormControl from '@/Components/FormControl.vue'
 import BaseDivider from '@/Components/BaseDivider.vue'
@@ -111,7 +111,7 @@ const submit = () => {
           />
         </FormField>
 
-        <FormCheckRadioPicker
+        <FormCheckRadioGroup
           v-if="hasTermsAndPrivacyPolicyFeature"
           v-model="form.terms"
           name="remember"
