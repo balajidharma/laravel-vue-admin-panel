@@ -138,7 +138,7 @@ const logout = () => {
             </NavBarItemLabel>
 
             <template #dropdown>
-              <NavBarItem to="/profile">
+              <NavBarItem route-name="admin.account.info">
                 <NavBarItemLabel
                   :icon="mdiAccount"
                   label="My Profile"
