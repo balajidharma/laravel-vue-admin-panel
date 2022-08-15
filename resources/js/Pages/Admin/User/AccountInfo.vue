@@ -69,7 +69,11 @@ const passwordForm = useForm({
               name="name"
               required
               :error="profileForm.errors.name"
-            />
+            >
+            <div class="text-red-400 text-sm" v-if="profileForm.errors.name">
+              {{ profileForm.errors.name }}
+            </div>
+            </FormControl>
           </FormField>
           <FormField
             label="Email"
@@ -83,7 +87,11 @@ const passwordForm = useForm({
               name="email"
               required
               :error="profileForm.errors.email"
-            />
+            >
+            <div class="text-red-400 text-sm" v-if="profileForm.errors.email">
+              {{ profileForm.errors.email }}
+            </div>
+            </FormControl>
           </FormField>
 
           <template #footer>
@@ -113,7 +121,11 @@ const passwordForm = useForm({
               type="password"
               required
               :error="passwordForm.errors.old_password"
-            />
+            >
+            <div class="text-red-400 text-sm" v-if="passwordForm.errors.old_password">
+              {{ passwordForm.errors.old_password }}
+            </div>
+            </FormControl>
           </FormField>
 
           <BaseDivider />
@@ -130,7 +142,11 @@ const passwordForm = useForm({
               type="password"
               required
               :error="passwordForm.errors.new_password"
-            />
+            >
+            <div class="text-red-400 text-sm" v-if="passwordForm.errors.new_password">
+              {{ passwordForm.errors.new_password }}
+            </div>
+            </FormControl>
           </FormField>
 
           <FormField
@@ -145,7 +161,11 @@ const passwordForm = useForm({
               type="password"
               required
               :error="passwordForm.errors.confirm_password"
-            />
+            >
+            <div class="text-red-400 text-sm" v-if="passwordForm.errors.confirm_password">
+              {{ passwordForm.errors.confirm_password }}
+            </div>
+            </FormControl>
           </FormField>
 
           <template #footer>

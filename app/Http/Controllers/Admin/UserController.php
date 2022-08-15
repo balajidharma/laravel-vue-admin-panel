@@ -175,7 +175,7 @@ class UserController extends Controller
      */
     public function accountInfoStore(Request $request)
     {
-        $request->validateWithBag('account', [
+        $request->validate('account', [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.\Auth::user()->id],
         ]);
@@ -213,7 +213,7 @@ class UserController extends Controller
             }
         });
 
-        $validator->validateWithBag('password');
+        $validator->validate();
 
         $user = \Auth::user()->update([
             'password' => Hash::make($request->input('old_password')),
