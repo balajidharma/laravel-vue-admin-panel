@@ -128,7 +128,7 @@ function destroy(id) {
                   {{ user.name }}
                 </Link>
               </td>
-              <td>
+              <td data-label="Email">
                 {{ user.email }}
               </td>
               <td
