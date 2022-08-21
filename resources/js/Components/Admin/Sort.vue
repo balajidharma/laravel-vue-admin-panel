@@ -1,6 +1,6 @@
 <script setup>
-import { ref, computed } from "vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { ref, computed } from "vue"
+import { Link } from "@inertiajs/inertia-vue3"
 
 const props = defineProps({
   label: {
@@ -11,25 +11,25 @@ const props = defineProps({
     type: String,
     default: "",
   },
-});
+})
 
-const downFill = ref("lightgray");
-const upFill = ref("lightgray");
+const downFill = ref("lightgray")
+const upFill = ref("lightgray")
 
 const sortLink = computed(() => {
-  let url = new URL(document.location);
-  let sortValue = url.searchParams.get("sort");
+  let url = new URL(document.location)
+  let sortValue = url.searchParams.get("sort")
 
   if (sortValue == props.attribute) {
-    url.searchParams.set("sort", "-" + props.attribute);
-    upFill.value = "black";
+    url.searchParams.set("sort", "-" + props.attribute)
+    upFill.value = "black"
   } else if (sortValue === "-" + props.attribute) {
-    url.searchParams.set("sort", props.attribute);
-    downFill.value = "black";
+    url.searchParams.set("sort", props.attribute)
+    downFill.value = "black"
   } else {
-    url.searchParams.set("sort", props.attribute);
+    url.searchParams.set("sort", props.attribute)
   }
-  return url.href;
+  return url.href
 });
 </script>
 

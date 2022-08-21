@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import { Head, Link, useForm } from "@inertiajs/inertia-vue3"
 import {
   mdiAccount,
   mdiAccountCircle,
@@ -9,34 +9,34 @@ import {
   mdiFormTextboxPassword,
   mdiArrowLeftBoldOutline,
   mdiAlertBoxOutline,
-} from "@mdi/js";
-import SectionMain from "@/Components/SectionMain.vue";
-import CardBox from "@/Components/CardBox.vue";
-import BaseDivider from "@/Components/BaseDivider.vue";
-import FormField from "@/Components/FormField.vue";
-import FormControl from "@/Components/FormControl.vue";
-import BaseButton from "@/Components/BaseButton.vue";
-import BaseButtons from "@/Components/BaseButtons.vue";
-import NotificationBar from "@/Components/NotificationBar.vue";
-import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue";
-import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
+} from "@mdi/js"
+import SectionMain from "@/Components/SectionMain.vue"
+import CardBox from "@/Components/CardBox.vue"
+import BaseDivider from "@/Components/BaseDivider.vue"
+import FormField from "@/Components/FormField.vue"
+import FormControl from "@/Components/FormControl.vue"
+import BaseButton from "@/Components/BaseButton.vue"
+import BaseButtons from "@/Components/BaseButtons.vue"
+import NotificationBar from "@/Components/NotificationBar.vue"
+import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue"
+import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue"
 
 const props = defineProps({
   user: {
     type: Object,
     default: () => ({}),
   },
-});
+})
 
 const profileForm = useForm({
   name: props.user.name,
   email: props.user.email,
-});
+})
 const passwordForm = useForm({
   old_password: null,
   new_password: null,
   confirm_password: null,
-});
+})
 </script>
 
 <template>
