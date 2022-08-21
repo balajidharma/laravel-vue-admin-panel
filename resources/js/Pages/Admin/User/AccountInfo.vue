@@ -8,6 +8,7 @@ import {
   mdiAsterisk,
   mdiFormTextboxPassword,
   mdiArrowLeftBoldOutline,
+  mdiAlertBoxOutline,
 } from "@mdi/js";
 import SectionMain from "@/Components/SectionMain.vue";
 import CardBox from "@/Components/CardBox.vue";
@@ -16,7 +17,8 @@ import FormField from "@/Components/FormField.vue";
 import FormControl from "@/Components/FormControl.vue";
 import BaseButton from "@/Components/BaseButton.vue";
 import BaseButtons from "@/Components/BaseButtons.vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
+import NotificationBar from "@/Components/NotificationBar.vue";
+import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
 
 const props = defineProps({
@@ -31,9 +33,9 @@ const profileForm = useForm({
   email: props.user.email,
 });
 const passwordForm = useForm({
-  old_password: "",
-  new_password: "",
-  confirm_password: "",
+  old_password: null,
+  new_password: null,
+  confirm_password: null,
 });
 </script>
 
@@ -50,7 +52,13 @@ const passwordForm = useForm({
           small
         />
       </SectionTitleLineWithButton>
-
+      <NotificationBar
+        v-if="$page.props.flash.message"
+        color="success"
+        :icon="mdiAlertBoxOutline"
+      >
+        {{ $page.props.flash.message }}
+      </NotificationBar>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <CardBox
           title="Edit Profile"
@@ -70,9 +78,9 @@ const passwordForm = useForm({
               required
               :error="profileForm.errors.name"
             >
-            <div class="text-red-400 text-sm" v-if="profileForm.errors.name">
-              {{ profileForm.errors.name }}
-            </div>
+              <div class="text-red-400 text-sm" v-if="profileForm.errors.name">
+                {{ profileForm.errors.name }}
+              </div>
             </FormControl>
           </FormField>
           <FormField
@@ -88,9 +96,9 @@ const passwordForm = useForm({
               required
               :error="profileForm.errors.email"
             >
-            <div class="text-red-400 text-sm" v-if="profileForm.errors.email">
-              {{ profileForm.errors.email }}
-            </div>
+              <div class="text-red-400 text-sm" v-if="profileForm.errors.email">
+                {{ profileForm.errors.email }}
+              </div>
             </FormControl>
           </FormField>
 
@@ -106,7 +114,10 @@ const passwordForm = useForm({
           :icon="mdiLock"
           form
           @submit.prevent="
-            passwordForm.post(route('admin.account.password.store'))
+            passwordForm.post(route('admin.account.password.store'), {
+              preserveScroll: true,
+              onSuccess: () => passwordForm.reset(),
+            })
           "
         >
           <FormField
@@ -122,9 +133,12 @@ const passwordForm = useForm({
               required
               :error="passwordForm.errors.old_password"
             >
-            <div class="text-red-400 text-sm" v-if="passwordForm.errors.old_password">
-              {{ passwordForm.errors.old_password }}
-            </div>
+              <div
+                class="text-red-400 text-sm"
+                v-if="passwordForm.errors.old_password"
+              >
+                {{ passwordForm.errors.old_password }}
+              </div>
             </FormControl>
           </FormField>
 
@@ -143,9 +157,12 @@ const passwordForm = useForm({
               required
               :error="passwordForm.errors.new_password"
             >
-            <div class="text-red-400 text-sm" v-if="passwordForm.errors.new_password">
-              {{ passwordForm.errors.new_password }}
-            </div>
+              <div
+                class="text-red-400 text-sm"
+                v-if="passwordForm.errors.new_password"
+              >
+                {{ passwordForm.errors.new_password }}
+              </div>
             </FormControl>
           </FormField>
 
@@ -162,9 +179,12 @@ const passwordForm = useForm({
               required
               :error="passwordForm.errors.confirm_password"
             >
-            <div class="text-red-400 text-sm" v-if="passwordForm.errors.confirm_password">
-              {{ passwordForm.errors.confirm_password }}
-            </div>
+              <div
+                class="text-red-400 text-sm"
+                v-if="passwordForm.errors.confirm_password"
+              >
+                {{ passwordForm.errors.confirm_password }}
+              </div>
             </FormControl>
           </FormField>
 

@@ -175,7 +175,7 @@ class UserController extends Controller
      */
     public function accountInfoStore(Request $request)
     {
-        $request->validate('account', [
+        $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.\Auth::user()->id],
         ]);
@@ -188,7 +188,7 @@ class UserController extends Controller
             $message = 'Error while saving. Please try again.';
         }
 
-        return redirect()->route('admin.account.info')->with('account_message', __($message));
+        return redirect()->route('admin.account.info')->with('message', __($message));
     }
 
     /**
@@ -216,7 +216,7 @@ class UserController extends Controller
         $validator->validate();
 
         $user = \Auth::user()->update([
-            'password' => Hash::make($request->input('old_password')),
+            'password' => Hash::make($request->input('new_password')),
         ]);
 
         if ($user) {
@@ -225,6 +225,6 @@ class UserController extends Controller
             $message = 'Error while saving. Please try again.';
         }
 
-        return redirect()->route('admin.account.info')->with('password_message', __($message));
+        return redirect()->route('admin.account.info')->with('message', __($message));
     }
 }
