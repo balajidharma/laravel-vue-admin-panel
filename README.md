@@ -32,7 +32,7 @@
 
 ## Also Try
 - [Build a Vue admin panel from scratch](https://blog.devgenius.io/laravel-creates-a-vue-admin-panel-from-scratch-part-1-installation-and-authentication-56c451d4d697)
-- [Basic Laravel Admin Panel with Balde template](https://github.com/balajidharma/basic-laravel-admin-panel)
+- [Basic Laravel Admin Panel - Build with Balde template](https://github.com/balajidharma/basic-laravel-admin-panel)
 
 ## Screenshots
 <p align="center">
