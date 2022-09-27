@@ -100,7 +100,7 @@ const form = useForm({
         >
           <FormControl
             v-model="form.password"
-            type="text"
+            type="password"
             placeholder="Enter Password"
             :error="form.errors.password"
           >
@@ -116,7 +116,7 @@ const form = useForm({
         >
           <FormControl
             v-model="form.password_confirmation"
-            type="text"
+            type="password"
             placeholder="Enter Password Confirmation"
             :error="form.errors.password"
           >
