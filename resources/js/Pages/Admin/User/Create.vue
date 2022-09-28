@@ -27,7 +27,7 @@ const form = useForm({
   email: '',
   password: '',
   password_confirmation: '',
-  roles: ''
+  roles: []
 })
 </script>
 

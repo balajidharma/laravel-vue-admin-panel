@@ -24,7 +24,7 @@ const props = defineProps({
 
 const form = useForm({
   name: '',
-  permissions: ''
+  permissions: []
 })
 </script>
 
