@@ -19,7 +19,7 @@
 - To get started, you need to install [Docker Desktop](https://www.docker.com/products/docker-desktop).
 - You may run the following command in your terminal
 - Windows open WSL2 Linux terminal. [Docker Desktop WSL 2 backend](https://docs.docker.com/desktop/windows/wsl/)
-- `docker run --rm -v "$(pwd)":/opt -w /opt laravelsail/php81-composer:latest bash -c "composer create-project balajidharma/laravel-vue-admin-panel admin-app && cd admin-app && php ./artisan sail:install --with=mysql,redis,meilisearch,mailhog,selenium"`
+- `docker run --rm -v "$(pwd)":/opt -w /opt laravelsail/php81-composer:latest bash -c "composer create-project balajidharma/laravel-vue-admin-panel admin-app && cd admin-app && php artisan sail:install --with=mysql,redis,meilisearch,mailhog,selenium"`
 - `cd admin-app`
 - `./vendor/bin/sail pull mysql redis meilisearch mailhog selenium`
 - `./vendor/bin/sail build`
