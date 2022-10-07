@@ -46,7 +46,7 @@ const form = useForm({
       </SectionTitleLineWithButton>
       <CardBox
         form
-        @submit.prevent="form.post(route('permission.update', this.permission.id))"
+        @submit.prevent="form.post(route('permission.update', props.permission.id))"
       >
         <FormField
           label="Name"
