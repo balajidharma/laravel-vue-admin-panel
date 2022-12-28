@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreRoleRequest;
-use App\Http\Requests\Admin\UpdateRoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
+use BalajiDharma\LaravelAdminCore\Requests\StoreRoleRequest;
+use BalajiDharma\LaravelAdminCore\Requests\UpdateRoleRequest;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 

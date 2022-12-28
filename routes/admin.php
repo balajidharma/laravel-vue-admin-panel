@@ -2,7 +2,7 @@
 
 Route::group([
     'namespace' => 'App\Http\Controllers\Admin',
-    'prefix' => 'admin',
+    'prefix' => config('admin.prefix'),
     'middleware' => ['auth'],
 ], function () {
     Route::resource('user', 'UserController');

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Actions\Admin\User\CreateUser;
-use App\Actions\Admin\User\UpdateUser;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreUserRequest;
-use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Models\Role;
 use App\Models\User;
+use BalajiDharma\LaravelAdminCore\Actions\User\CreateUser;
+use BalajiDharma\LaravelAdminCore\Actions\User\UpdateUser;
+use BalajiDharma\LaravelAdminCore\Requests\StoreUserRequest;
+use BalajiDharma\LaravelAdminCore\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -86,7 +86,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request, CreateUser $createUser)
     {
-        $createUser->handle($request);
+        $createUser->handle((object) $request->all());
 
         return redirect()->route('user.index')
                         ->with('message', __('User created successfully.'));
@@ -138,7 +138,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user, UpdateUser $updateUser)
     {
-        $updateUser->handle($request, $user);
+        $updateUser->handle((object) $request->all(), $user);
 
         return redirect()->route('user.index')
                         ->with('message', __('User updated successfully.'));
