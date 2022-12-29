@@ -80,8 +80,8 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Admin\StoreUserRequest  $request
-     * @param  \App\Actions\Admin\User\CreateUser  $createUser
+     * @param  StoreUserRequest  $request
+     * @param  CreateUser  $createUser
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUserRequest $request, CreateUser $createUser)
@@ -131,9 +131,9 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Admin\UpdateUserRequest  $request
+     * @param  UpdateUserRequest  $request
      * @param  \App\Models\User  $user
-     * @param  \App\Actions\Admin\User\UpdateUser  $updateUser
+     * @param  UpdateUser  $updateUser
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateUserRequest $request, User $user, UpdateUser $updateUser)

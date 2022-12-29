@@ -70,7 +70,7 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Admin\StorePermissionRequest  $request
+     * @param  StorePermissionRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StorePermissionRequest $request)
@@ -110,7 +110,7 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Admin\UpdatePermissionRequest  $request
+     * @param  UpdatePermissionRequest  $request
      * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Http\RedirectResponse
      */
