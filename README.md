@@ -33,6 +33,18 @@
 - Email - superadmin@example.com
 - Password - password
 
+#### Copy the package config to your local config with the publish command:
+
+```shell
+./vendor/bin/sail artisan vendor:publish --provider="BalajiDharma\LaravelAdminCore\AdminCoreServiceProvider"
+```
+
+To change the Admin Prefix, copy the file to your config folder and change it or add the `ADMIN_PREFIX` on env 
+
+```php
+'prefix' => env('ADMIN_PREFIX', 'admin'),
+```
+
 ## Also Try
 - [Build a Vue admin panel from scratch](https://blog.devgenius.io/laravel-creates-a-vue-admin-panel-from-scratch-part-1-installation-and-authentication-56c451d4d697)
 - [Basic Laravel Admin Panel - Build with Blade template](https://github.com/balajidharma/basic-laravel-admin-panel)
