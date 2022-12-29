@@ -28,7 +28,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
@@ -66,7 +66,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function create()
     {
@@ -96,7 +96,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function show(User $user)
     {
@@ -114,7 +114,7 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function edit(User $user)
     {
@@ -134,7 +134,7 @@ class UserController extends Controller
      * @param  \App\Http\Requests\Admin\UpdateUserRequest  $request
      * @param  \App\Models\User  $user
      * @param  \App\Actions\Admin\User\UpdateUser  $updateUser
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateUserRequest $request, User $user, UpdateUser $updateUser)
     {
@@ -148,7 +148,7 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(User $user)
     {
@@ -160,6 +160,8 @@ class UserController extends Controller
 
     /**
      * Show the user a form to change their personal information & password.
+     *
+     * @return \Inertia\Response
      */
     public function accountInfo()
     {
@@ -172,6 +174,9 @@ class UserController extends Controller
 
     /**
      * Save the modified personal information for a user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function accountInfoStore(Request $request)
     {
@@ -193,6 +198,9 @@ class UserController extends Controller
 
     /**
      * Save the new password for a user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function changePasswordStore(Request $request)
     {
