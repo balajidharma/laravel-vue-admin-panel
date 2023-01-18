@@ -26,7 +26,9 @@
 - `./vendor/bin/sail up`
 - `./vendor/bin/sail npm install`
 - `./vendor/bin/sail npm run dev`
-- `./vendor/bin/sail artisan migrate --seed --seeder=BasicAdminPermissionSeeder`
+- `./vendor/bin/sail artisan vendor:publish --provider="BalajiDharma\LaravelAdminCore\AdminCoreServiceProvider"`
+- `./vendor/bin/sail artisan vendor:publish --provider="BalajiDharma\LaravelMenu\MenuServiceProvider"`
+- `./vendor/bin/sail artisan migrate --seed --seeder=AdminCoreSeeder`
 - Now open http://localhost/
 
 ###### Super Admin Login
