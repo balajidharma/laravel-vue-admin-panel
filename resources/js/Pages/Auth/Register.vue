@@ -1,5 +1,5 @@
 <script setup>
-import { useForm, usePage, Head } from '@inertiajs/inertia-vue3'
+import { useForm, usePage, Head } from '@inertiajs/vue3'
 import { computed } from 'vue'
 import { mdiAccount, mdiEmail, mdiFormTextboxPassword } from '@mdi/js'
 import LayoutGuest from '@/Layouts/LayoutGuest.vue'

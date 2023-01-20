@@ -1,5 +1,5 @@
 <script setup>
-import { useForm, Head, Link } from '@inertiajs/inertia-vue3'
+import { useForm, Head, Link } from '@inertiajs/vue3'
 import { mdiAccount, mdiAsterisk } from '@mdi/js'
 import LayoutGuest from '@/Layouts/LayoutGuest.vue'
 import SectionFullScreen from '@/Components/SectionFullScreen.vue'

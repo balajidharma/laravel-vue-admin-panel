@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3'
+import { Head } from '@inertiajs/vue3'
 import { computed, ref, onMounted } from 'vue'
 import { useMainStore } from '@/Stores/main'
 import {

@@ -1,5 +1,5 @@
 <script setup>
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 import { mdiLogout, mdiClose } from '@mdi/js'
 import { computed } from 'vue'
 import { useLayoutStore } from '@/Stores/layout.js'
@@ -28,7 +28,7 @@ const logoutItem = computed(() => ({
 }))
 
 const logoutItemClick = () => {
-  Inertia.post(route('logout'))
+  router.post(route('logout'))
 }
 
 const menuClick = (event, item) => {

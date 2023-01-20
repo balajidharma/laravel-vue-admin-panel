@@ -1,11 +1,13 @@
 <script setup>
-import { Head, Link, useForm } from "@inertiajs/inertia-vue3"
+import { Head, Link, useForm } from "@inertiajs/vue3"
+import { reactive, onBeforeMount } from 'vue'
 import {
   mdiLink,
   mdiPlus,
   mdiSquareEditOutline,
   mdiTrashCan,
   mdiAlertBoxOutline,
+  mdiArrowLeftBoldOutline
 } from "@mdi/js"
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue"
 import SectionMain from "@/Components/SectionMain.vue"
@@ -30,7 +32,6 @@ const props = defineProps({
   },
 })
 
-
 const formDelete = useForm({})
 
 function destroy(id) {
@@ -38,26 +39,57 @@ function destroy(id) {
     formDelete.delete(route("menu.item.destroy", {menu: props.menu.id, item: id}))
   }
 }
+
+let itemTree = reactive([]);
+
+onBeforeMount(() => {
+  buildFlatList(props.items);
+})
+
+function buildFlatList(items, child = false, depth = 0) {
+  for (let i = 0; i < items.length; i++) {
+    if(child){
+      items[i].name = '-'.repeat(depth) + items[i].name;
+    }
+    itemTree.push(items[i]);
+    if(items[i].children) {
+      depth++;
+      buildFlatList(items[i].children, true, depth);
+    }
+    depth = 0;
+  }
+}
+
 </script>
 
 <template>
   <LayoutAuthenticated>
-    <Head title="Menus" />
+    <Head title="Menu Items" />
     <SectionMain>
       <SectionTitleLineWithButton
         :icon="mdiLink"
-        title="Menus"
+        title="Menu Items"
         main
       >
-        <BaseButton
-          v-if="can.delete"
-          :route-name="route('menu.item.create', menu.id)"
-          :icon="mdiPlus"
-          label="Add"
-          color="info"
-          rounded-full
-          small
-        />
+        <BaseButtons type="justify-start lg:justify-end" no-wrap>
+          <BaseButton
+            :route-name="route('menu.index')"
+            :icon="mdiArrowLeftBoldOutline"
+            label="Back"
+            color="white"
+            rounded-full
+            small
+          />
+          <BaseButton
+            v-if="can.delete"
+            :route-name="route('menu.item.create', menu.id)"
+            :icon="mdiPlus"
+            label="Add"
+            color="info"
+            rounded-full
+            small
+          />
+        </BaseButtons>
       </SectionTitleLineWithButton>
       <NotificationBar
         v-if="$page.props.flash.message"
@@ -67,6 +99,44 @@ function destroy(id) {
         {{ $page.props.flash.message }}
       </NotificationBar>
       <CardBox class="mb-6" has-table>
+        <table class="border-collapse w-full border border-slate-400 dark:border-slate-500 bg-white dark:bg-slate-800 text-sm shadow-sm">
+          <tbody>
+            <tr>
+              <td
+                class="
+                  p-4
+                  pl-8
+                  text-slate-500
+                  dark:text-slate-400
+                  hidden
+                  lg:block
+                "
+              >
+                Name
+              </td>
+              <td data-label="Name">
+                {{ menu.name }}
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="
+                  p-4
+                  pl-8
+                  text-slate-500
+                  dark:text-slate-400
+                  hidden
+                  lg:block
+                "
+              >
+                Machine name
+              </td>
+              <td data-label="Machine Name">
+                {{ menu.machine_name }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <table>
           <thead>
             <tr>
@@ -84,7 +154,7 @@ function destroy(id) {
           </thead>
 
           <tbody>
-            <tr v-for="item in items" :key="item.id">
+            <tr v-for="item in itemTree" :key="item.id">
               <td data-label="Name">
                   {{ item.name }}
               </td>

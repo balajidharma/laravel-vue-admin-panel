@@ -1,6 +1,5 @@
 <script setup>
-import { usePage } from '@inertiajs/inertia-vue3'
-import { Inertia } from '@inertiajs/inertia'
+import { usePage, router } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
 import { containerMaxW } from '@/config.js'
 import { useMainStore } from '@/Stores/main.js'
@@ -32,7 +31,7 @@ import NavBarSearch from '@/Components/NavBarSearch.vue'
 
 const mainStore = useMainStore()
 
-const userName = computed(() => usePage().props.value.auth.user.name)
+const userName = computed(() => usePage().props.auth.user.name)
 
 const styleStore = useStyleStore()
 
@@ -53,7 +52,7 @@ const menuOpenLg = () => {
 }
 
 const logout = () => {
-  Inertia.post(route('logout'))
+  router.post(route('logout'))
 }
 </script>
 
