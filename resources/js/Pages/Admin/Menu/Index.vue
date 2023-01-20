@@ -1,8 +1,9 @@
 <script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3"
 import {
-  mdiAccountKey,
+  mdiMenu,
   mdiPlus,
+  mdiCogOutline,
   mdiSquareEditOutline,
   mdiTrashCan,
   mdiAlertBoxOutline,
@@ -18,7 +19,7 @@ import Pagination from "@/Components/Admin/Pagination.vue"
 import Sort from "@/Components/Admin/Sort.vue"
 
 const props = defineProps({
-  permissions: {
+  menus: {
     type: Object,
     default: () => ({}),
   },
@@ -40,23 +41,23 @@ const formDelete = useForm({})
 
 function destroy(id) {
   if (confirm("Are you sure you want to delete?")) {
-    formDelete.delete(route("permission.destroy", id))
+    formDelete.delete(route("menu.destroy", id))
   }
 }
 </script>
 
 <template>
   <LayoutAuthenticated>
-    <Head title="Permissions" />
+    <Head title="Menus" />
     <SectionMain>
       <SectionTitleLineWithButton
-        :icon="mdiAccountKey"
-        title="Permissions"
+        :icon="mdiMenu"
+        title="Menus"
         main
       >
         <BaseButton
           v-if="can.delete"
-          :route-name="route('permission.create')"
+          :route-name="route('menu.create')"
           :icon="mdiPlus"
           label="Add"
           color="info"
@@ -72,7 +73,7 @@ function destroy(id) {
         {{ $page.props.flash.message }}
       </NotificationBar>
       <CardBox class="mb-6" has-table>
-        <form @submit.prevent="form.get(route('permission.index'))">
+        <form @submit.prevent="form.get(route('menu.index'))">
           <div class="py-2 flex">
             <div class="flex pl-4">
               <input
@@ -106,33 +107,36 @@ function destroy(id) {
               <th>
                 <Sort label="Name" attribute="name" />
               </th>
-              <th v-if="can.edit || can.delete">Actions</th>
+              <th>
+                Description
+              </th>
+              <th v-if="can.edit || can.delete || can.manage">Actions</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr v-for="permission in permissions.data" :key="permission.id">
+            <tr v-for="menu in menus.data" :key="menu.id">
               <td data-label="Name">
-                <Link
-                  :href="route('permission.show', permission.id)"
-                  class="
-                    no-underline
-                    hover:underline
-                    text-cyan-600
-                    dark:text-cyan-400
-                  "
-                >
-                  {{ permission.name }}
-                </Link>
+                  {{ menu.name }}
+              </td>
+               <td data-label="Description">
+                  {{ menu.description }}
               </td>
               <td
-                v-if="can.edit || can.delete"
+                v-if="can.edit || can.delete || can.manage"
                 class="before:hidden lg:w-1 whitespace-nowrap"
               >
                 <BaseButtons type="justify-start lg:justify-end" no-wrap>
                   <BaseButton
+                    v-if="can.manage"
+                    :route-name="route('menu.item.index', menu.id)"
+                    color="warning"
+                    :icon="mdiCogOutline "
+                    small
+                  />
+                  <BaseButton
                     v-if="can.edit"
-                    :route-name="route('permission.edit', permission.id)"
+                    :route-name="route('menu.edit', menu.id)"
                     color="info"
                     :icon="mdiSquareEditOutline"
                     small
@@ -142,7 +146,7 @@ function destroy(id) {
                     color="danger"
                     :icon="mdiTrashCan"
                     small
-                    @click="destroy(permission.id)"
+                    @click="destroy(menu.id)"
                   />
                 </BaseButtons>
               </td>
@@ -150,7 +154,7 @@ function destroy(id) {
           </tbody>
         </table>
         <div class="py-4">
-          <Pagination :data="permissions" />
+          <Pagination :data="menus" />
         </div>
       </CardBox>
     </SectionMain>

@@ -1,6 +1,6 @@
 <script setup>
 import { useStyleStore } from '@/Stores/style.js'
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/vue3'
 import { computed } from 'vue'
 
 const props = defineProps({
