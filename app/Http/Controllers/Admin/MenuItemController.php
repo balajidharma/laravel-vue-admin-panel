@@ -40,15 +40,18 @@ class MenuItemController extends Controller
         ]);
     }
 
-        /**
+    /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\View\View
+     * @return \Inertia\Response
      */
     public function create(Menu $menu)
     {
         $item_options = MenuItem::selectOptions($menu->id);
-        return view('admin.menu.item.create', compact('menu', 'item_options'));
+        return Inertia::render('Admin/Menu/Item/Create', [
+            'menu' => $menu,
+            'item_options' => $item_options
+        ]);
     }
 
     /**
@@ -70,12 +73,16 @@ class MenuItemController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \BalajiDharma\LaravelMenu\Models\Menu $menu
-     * @return \Illuminate\View\View
+     * @return \Inertia\Response
      */
     public function edit(Menu $menu, MenuItem $item)
     {
         $item_options = MenuItem::selectOptions($menu->id, $item->parent_id ?? $item->id);
-        return view('admin.menu.item.edit', compact('menu', 'item', 'item_options'));
+        return Inertia::render('Admin/Menu/Item/Edit', [
+            'menu' => $menu,
+            'item' => $item,
+            'item_options' => $item_options
+        ]);
     }
 
     /**
