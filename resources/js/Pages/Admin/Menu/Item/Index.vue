@@ -1,6 +1,5 @@
 <script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3"
-import { reactive, onBeforeMount } from 'vue'
 import {
   mdiLink,
   mdiPlus,
@@ -16,6 +15,7 @@ import BaseButton from "@/Components/BaseButton.vue"
 import CardBox from "@/Components/CardBox.vue"
 import BaseButtons from "@/Components/BaseButtons.vue"
 import NotificationBar from "@/Components/NotificationBar.vue"
+import MenuItemList from "@/Components/Admin/MenuItemList.vue"
 
 const props = defineProps({
   items: {
@@ -37,26 +37,6 @@ const formDelete = useForm({})
 function destroy(id) {
   if (confirm("Are you sure you want to delete?")) {
     formDelete.delete(route("menu.item.destroy", {menu: props.menu.id, item: id}))
-  }
-}
-
-let itemTree = reactive([]);
-
-onBeforeMount(() => {
-  buildFlatList(props.items);
-})
-
-function buildFlatList(items, child = false, depth = 0) {
-  for (let i = 0; i < items.length; i++) {
-    if(child){
-      items[i].name = '-'.repeat(depth) + items[i].name;
-    }
-    itemTree.push(items[i]);
-    if(items[i].children) {
-      depth++;
-      buildFlatList(items[i].children, true, depth);
-    }
-    depth = 0;
   }
 }
 
@@ -154,38 +134,9 @@ function buildFlatList(items, child = false, depth = 0) {
           </thead>
 
           <tbody>
-            <tr v-for="item in itemTree" :key="item.id">
-              <td data-label="Name">
-                  {{ item.name }}
-              </td>
-               <td data-label="Description">
-                  {{ item.description }}
-              </td>
-              <td data-label="Enabled">
-                  {{ item.enabled }}
-              </td>
-              <td
-                v-if="can.edit || can.delete"
-                class="before:hidden lg:w-1 whitespace-nowrap"
-              >
-                <BaseButtons type="justify-start lg:justify-end" no-wrap>
-                  <BaseButton
-                    v-if="can.edit"
-                    :route-name="route('menu.item.edit', {menu: menu.id, item: item.id})"
-                    color="info"
-                    :icon="mdiSquareEditOutline"
-                    small
-                  />
-                  <BaseButton
-                    v-if="can.delete"
-                    color="danger"
-                    :icon="mdiTrashCan"
-                    small
-                    @click="destroy(item.id)"
-                  />
-                </BaseButtons>
-              </td>
-            </tr>
+            <template v-for="item in items">
+              <MenuItemList :item="item" :menu="menu" :can="can" :level=0 />
+            </template>
           </tbody>
         </table>
       </CardBox>

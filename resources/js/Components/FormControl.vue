@@ -29,7 +29,7 @@ const props = defineProps({
     default: null
   },
   options: {
-    type: Array,
+    type: [Array, Object],
     default: null
   },
   type: {
@@ -133,12 +133,13 @@ if (props.ctrlKFocus) {
       :name="name"
       :class="inputElClass"
     >
+      <option value="" v-if="placeholder"> {{ placeholder }}</option>
       <option
-        v-for="option in options"
-        :key="option.id ?? option"
-        :value="option"
+        v-for="(option, index) in options"
+        :key="index"
+        :value="index"
+        v-html="option"
       >
-        {{ option.label ?? option }}
       </option>
     </select>
     <textarea
