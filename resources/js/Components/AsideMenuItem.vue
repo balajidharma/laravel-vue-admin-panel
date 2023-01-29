@@ -29,7 +29,7 @@ const isDropdownActive = ref(false)
 
 const componentClass = computed(() => (
   [
-    props.isDropdownList ? 'py-3 px-6 text-sm' : 'py-3',
+    props.isDropdownList ? 'py-3 px-6 text-sm' : 'py-3 px-6',
     hasColor.value
       ? getButtonColor(props.item.color, false, true)
       : styleStore.asideMenuItemStyle

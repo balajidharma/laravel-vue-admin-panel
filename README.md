@@ -10,6 +10,7 @@
 - [Laravel 9](https://github.com/laravel/framework)
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission)
 - [Laravel Breeze](https://github.com/laravel/breeze)
+- [balajidharma/laravel-menu](https://github.com/balajidharma/laravel-menu)
 - [Vue 3](https://vuejs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Inertiajs](https://inertiajs.com/)
@@ -35,13 +36,9 @@
 - Email - superadmin@example.com
 - Password - password
 
-#### Copy the package config to your local config with the publish command:
+#### Admin Configuration:
 
-```shell
-./vendor/bin/sail artisan vendor:publish --provider="BalajiDharma\LaravelAdminCore\AdminCoreServiceProvider"
-```
-
-To change the Admin Prefix, copy the file to your config folder and change it or add the `ADMIN_PREFIX` on env 
+To change the Admin Prefix, change `prefix` on `config/admin.php` or add the `ADMIN_PREFIX` on env 
 
 ```php
 'prefix' => env('ADMIN_PREFIX', 'admin'),
