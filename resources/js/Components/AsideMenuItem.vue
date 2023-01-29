@@ -15,7 +15,7 @@ const props = defineProps({
   isDropdownList: Boolean,
 })
 
-const itemHref = computed(() => props.item.route ? route(props.item.route) : props.item.href)
+const itemHref = computed(() => (props.item && props.item.link) ? props.item.link : '')
 
 const emit = defineEmits(['menu-click'])
 
@@ -36,7 +36,7 @@ const componentClass = computed(() => (
   ]
 ))
 
-const hasDropdown = computed(() => !!props.item.menu)
+const hasDropdown = computed(() => props.item.children)
 
 const menuClick = event => {
   emit('menu-click', event, props.item)
@@ -56,7 +56,7 @@ const activeInactiveStyle = computed(
 <template>
   <li>
     <component
-      :is="item.route ? Link : 'a'"
+      :is="itemHref ? Link : 'div'"
       :href="itemHref"
       :target="item.target ?? null"
       class="flex cursor-pointer dark:text-slate-300 dark:hover:text-white"
@@ -74,7 +74,7 @@ const activeInactiveStyle = computed(
       <span
         class="grow text-ellipsis line-clamp-1"
         :class="activeInactiveStyle"
-      >{{ item.label }}</span>
+      >{{ item.name }}</span>
       <BaseIcon
         v-if="hasDropdown"
         :path="isDropdownActive ? mdiMinus : mdiPlus"
@@ -85,7 +85,7 @@ const activeInactiveStyle = computed(
     </component>
     <AsideMenuList
       v-if="hasDropdown"
-      :menu="item.menu"
+      :menu="item.children"
       :class="[ styleStore.asideMenuDropdownStyle, isDropdownActive ? 'block dark:bg-slate-800/50' : 'hidden' ]"
       is-dropdown-list
     />

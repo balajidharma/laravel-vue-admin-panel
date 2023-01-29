@@ -4,8 +4,8 @@ import AsideMenuItem from '@/Components/AsideMenuItem.vue'
 defineProps({
   isDropdownList: Boolean,
   menu: {
-    type: Array,
-    default: () => []
+    type: Object,
+    default: () => {}
   }
 })
 

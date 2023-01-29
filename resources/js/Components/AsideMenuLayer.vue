@@ -10,8 +10,8 @@ import BaseIcon from '@/Components/BaseIcon.vue'
 
 defineProps({
   menu: {
-    type: Array,
-    default: () => []
+    type: Object,
+    default: () => {}
   }
 })
 
@@ -22,9 +22,10 @@ const layoutStore = useLayoutStore()
 const styleStore = useStyleStore()
 
 const logoutItem = computed(() => ({
-  label: 'Logout',
+  name: 'Logout',
   icon: mdiLogout,
-  color: 'info'
+  color: 'info',
+  link: '#'
 }))
 
 const logoutItemClick = () => {
