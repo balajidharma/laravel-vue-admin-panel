@@ -7,7 +7,7 @@
 </p>
 
 ## Built with
-- [Laravel 9](https://github.com/laravel/framework)
+- [Laravel 10](https://github.com/laravel/framework)
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission)
 - [Laravel Breeze](https://github.com/laravel/breeze)
 - [balajidharma/laravel-menu](https://github.com/balajidharma/laravel-menu)
@@ -20,9 +20,9 @@
 - To get started, you need to install [Docker Desktop](https://www.docker.com/products/docker-desktop).
 - You may run the following command in your terminal
 - Windows open WSL2 Linux terminal. [Docker Desktop WSL 2 backend](https://docs.docker.com/desktop/windows/wsl/)
-- `docker run --rm -v "$(pwd)":/opt -w /opt laravelsail/php81-composer:latest bash -c "composer create-project balajidharma/laravel-vue-admin-panel admin-app && cd admin-app && php artisan sail:install --with=mysql,redis,meilisearch,mailhog,selenium"`
+- `docker run --rm -v "$(pwd)":/opt -w /opt laravelsail/php82-composer:latest bash -c "composer create-project balajidharma/laravel-vue-admin-panel admin-app && cd admin-app && php artisan sail:install --with=mysql,redis,meilisearch,mailpit,selenium"`
 - `cd admin-app`
-- `./vendor/bin/sail pull mysql redis meilisearch mailhog selenium`
+- `./vendor/bin/sail pull mysql redis meilisearch mailpit selenium`
 - `./vendor/bin/sail build`
 - `./vendor/bin/sail up`
 - `./vendor/bin/sail npm install`
