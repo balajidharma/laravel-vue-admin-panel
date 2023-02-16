@@ -17,6 +17,8 @@
 - [Admin One - Admin Dashboard](https://github.com/justboil/admin-one-vue-tailwind)
 
 ## Installation
+
+### With Docker Desktop
 - To get started, you need to install [Docker Desktop](https://www.docker.com/products/docker-desktop).
 - You may run the following command in your terminal
 - Windows open WSL2 Linux terminal. [Docker Desktop WSL 2 backend](https://docs.docker.com/desktop/windows/wsl/)
@@ -31,6 +33,19 @@
 - `./vendor/bin/sail artisan vendor:publish --provider="BalajiDharma\LaravelMenu\MenuServiceProvider"`
 - `./vendor/bin/sail artisan migrate --seed --seeder=AdminCoreSeeder`
 - Now open http://localhost/
+
+### Without Docker Desktop
+- To get started, you need to install [PHP Composer](https://getcomposer.org/).
+- `composer create-project balajidharma/laravel-vue-admin-panel admin-app`
+- `cd admin-app`
+- Create a new MYSQL database and update database details in `.env` file
+- `php artisan vendor:publish --provider="BalajiDharma\LaravelAdminCore\AdminCoreServiceProvider"`
+- `php artisan vendor:publish --provider="BalajiDharma\LaravelMenu\MenuServiceProvider"`
+- `php artisan migrate --seed --seeder=AdminCoreSeeder`
+- `npm install`
+- `npm run dev`
+- `php artisan serve`
+- Now open http://localhost:8000/
 
 ###### Super Admin Login
 - Email - superadmin@example.com
