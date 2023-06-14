@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { Link } from '@inertiajs/vue3'
+import { Link, usePage } from '@inertiajs/vue3'
 import { useStyleStore } from '@/Stores/style.js'
 import { mdiMinus, mdiPlus } from '@mdi/js'
 import { getButtonColor } from '@/colors.js'
@@ -15,9 +15,11 @@ const props = defineProps({
   isDropdownList: Boolean,
 })
 
+const { url, component } = usePage()
+
 const itemHref = computed(() => (props.item && props.item.link) ? props.item.link : '')
 
-const emit = defineEmits(['menu-click'])
+const emit = defineEmits(['menu-click', 'dropdown-active'])
 
 const styleStore = useStyleStore()
 
@@ -46,10 +48,20 @@ const menuClick = event => {
   }
 }
 
+const dropdownActive = value => {
+  isDropdownActive.value = value;
+}
+
 const activeInactiveStyle = computed(
-  () => props.item.route && route().current(props.item.route)
-    ? styleStore.asideMenuItemActiveStyle
-    : ''
+  () => {
+    if(props.item.link && url === props.item.link) {
+      emit('dropdown-active', true)
+      return styleStore.asideMenuItemActiveStyle
+    }
+    else {
+      return ''
+    }
+  }
 )
 </script>
 
@@ -88,6 +100,7 @@ const activeInactiveStyle = computed(
       :menu="item.children"
       :class="[ styleStore.asideMenuDropdownStyle, isDropdownActive ? 'block dark:bg-slate-800/50' : 'hidden' ]"
       is-dropdown-list
+      @dropdown-active="dropdownActive"
     />
   </li>
 </template>

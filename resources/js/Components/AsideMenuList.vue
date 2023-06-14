@@ -9,10 +9,14 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['menu-click'])
+const emit = defineEmits(['menu-click', 'dropdown-active'])
 
 const menuClick = (event, item) => {
   emit('menu-click', event, item)
+}
+
+const dropdownActive = value => {
+  emit('dropdown-active', value)
 }
 </script>
 
@@ -24,6 +28,7 @@ const menuClick = (event, item) => {
       :item="item"
       :is-dropdown-list="isDropdownList"
       @menu-click="menuClick"
+      @dropdown-active="dropdownActive"
     />
   </ul>
 </template>
