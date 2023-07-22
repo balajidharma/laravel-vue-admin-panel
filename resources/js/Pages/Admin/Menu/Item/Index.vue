@@ -72,6 +72,7 @@ function destroy(id) {
         </BaseButtons>
       </SectionTitleLineWithButton>
       <NotificationBar
+        :key="Date.now()"
         v-if="$page.props.flash.message"
         color="success"
         :icon="mdiAlertBoxOutline"

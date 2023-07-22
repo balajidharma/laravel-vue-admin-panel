@@ -15,12 +15,11 @@ const props = defineProps({
   color: {
     type: String,
     required: true
-  }
+  },
 })
 
-const componentClass = computed(() => props.outline
-  ? colorsOutline[props.color]
-  : colorsBgLight[props.color]
+const componentClass = computed(() =>
+  props.outline ? colorsOutline[props.color] : colorsBgLight[props.color]
 )
 
 const isDismissed = ref(false)
@@ -38,7 +37,7 @@ const hasRightSlot = computed(() => slots.right)
   <div
     v-if="!isDismissed"
     :class="componentClass"
-    class="px-3 py-6 md:py-3 mb-6 last:mb-0 border rounded transition-colors duration-150"
+    class="px-3 py-6 md:py-3 mb-6 last:mb-0 border rounded-lg transition-colors duration-150"
   >
     <BaseLevel>
       <div class="flex flex-col md:flex-row items-center">
@@ -50,17 +49,15 @@ const hasRightSlot = computed(() => slots.right)
           size="24"
           class="md:mr-2"
         />
-        <span class="text-center md:text-left"><slot /></span>
+        <span class="text-center md:text-left md:py-2"><slot /></span>
       </div>
-      <slot
-        v-if="hasRightSlot"
-        name="right"
-      />
+      <slot v-if="hasRightSlot" name="right" />
       <BaseButton
         v-else
         :icon="mdiClose"
-        :outline="outline"
         small
+        rounded-full
+        color="white"
         @click="dismiss"
       />
     </BaseLevel>
