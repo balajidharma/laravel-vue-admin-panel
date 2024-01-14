@@ -36,7 +36,7 @@ class MenuItemController extends Controller
                 'create' => Auth::user()->can('menu.item create'),
                 'edit' => Auth::user()->can('menu.item edit'),
                 'delete' => Auth::user()->can('menu.item delete'),
-            ]
+            ],
         ]);
     }
 
@@ -48,17 +48,16 @@ class MenuItemController extends Controller
     public function create(Menu $menu)
     {
         $item_options = MenuItem::selectOptions($menu->id, null, true);
+
         return Inertia::render('Admin/Menu/Item/Create', [
             'menu' => $menu,
-            'item_options' => $item_options
+            'item_options' => $item_options,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreMenuItemRequest  $request
-     * @param  \BalajiDharma\LaravelMenu\Models\Menu $menu
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreMenuItemRequest $request, Menu $menu)
@@ -66,31 +65,28 @@ class MenuItemController extends Controller
         $menu->menuItems()->create($request->all());
 
         return redirect()->route('menu.item.index', $menu->id)
-                        ->with('message', 'Menu created successfully.');
+            ->with('message', 'Menu created successfully.');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \BalajiDharma\LaravelMenu\Models\Menu $menu
      * @return \Inertia\Response
      */
     public function edit(Menu $menu, MenuItem $item)
     {
         $item_options = MenuItem::selectOptions($menu->id, $item->parent_id ?? $item->id);
+
         return Inertia::render('Admin/Menu/Item/Edit', [
             'menu' => $menu,
             'item' => $item,
-            'item_options' => $item_options
+            'item_options' => $item_options,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateMenuItemRequest  $request
-     * @param  \BalajiDharma\LaravelMenu\Models\Menu $menu
-     * @param  \BalajiDharma\LaravelMenu\Models\MenuItem $item
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateMenuItemRequest $request, Menu $menu, MenuItem $item)
@@ -98,14 +94,13 @@ class MenuItemController extends Controller
         $item->update($request->all());
 
         return redirect()->route('menu.item.index', $menu->id)
-                        ->with('message', 'Menu Item updated successfully.');
+            ->with('message', 'Menu Item updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \BalajiDharma\LaravelMenu\Models\Menu $menu
-     * @param  \BalajiDharma\LaravelMenu\Models\MenuItem $menuItem
+     * @param  \BalajiDharma\LaravelMenu\Models\MenuItem  $menuItem
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Menu $menu, MenuItem $item)
@@ -113,6 +108,6 @@ class MenuItemController extends Controller
         $item->delete();
 
         return redirect()->route('menu.item.index', $menu->id)
-                        ->with('message', __('Menu deleted successfully'));
+            ->with('message', __('Menu deleted successfully'));
     }
 }
