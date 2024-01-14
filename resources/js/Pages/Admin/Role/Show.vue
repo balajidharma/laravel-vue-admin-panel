@@ -36,7 +36,7 @@ const props = defineProps({
         main
       >
         <BaseButton
-          :route-name="route('role.index')"
+          :route-name="route('admin.role.index')"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"

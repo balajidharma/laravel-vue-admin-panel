@@ -40,7 +40,7 @@ const formDelete = useForm({})
 
 function destroy(id) {
   if (confirm("Are you sure you want to delete?")) {
-    formDelete.delete(route("permission.destroy", id))
+    formDelete.delete(route("admin.permission.destroy", id))
   }
 }
 </script>
@@ -56,7 +56,7 @@ function destroy(id) {
       >
         <BaseButton
           v-if="can.delete"
-          :route-name="route('permission.create')"
+          :route-name="route('admin.permission.create')"
           :icon="mdiPlus"
           label="Add"
           color="info"
@@ -73,7 +73,7 @@ function destroy(id) {
         {{ $page.props.flash.message }}
       </NotificationBar>
       <CardBox class="mb-6" has-table>
-        <form @submit.prevent="form.get(route('permission.index'))">
+        <form @submit.prevent="form.get(route('admin.permission.index'))">
           <div class="py-2 flex">
             <div class="flex pl-4">
               <input
@@ -115,7 +115,7 @@ function destroy(id) {
             <tr v-for="permission in permissions.data" :key="permission.id">
               <td data-label="Name">
                 <Link
-                  :href="route('permission.show', permission.id)"
+                  :href="route('admin.permission.show', permission.id)"
                   class="
                     no-underline
                     hover:underline
@@ -133,7 +133,7 @@ function destroy(id) {
                 <BaseButtons type="justify-start lg:justify-end" no-wrap>
                   <BaseButton
                     v-if="can.edit"
-                    :route-name="route('permission.edit', permission.id)"
+                    :route-name="route('admin.permission.edit', permission.id)"
                     color="info"
                     :icon="mdiSquareEditOutline"
                     small

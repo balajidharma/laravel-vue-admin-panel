@@ -40,7 +40,7 @@ const formDelete = useForm({})
 
 function destroy(id) {
   if (confirm("Are you sure you want to delete?")) {
-    formDelete.delete(route("role.destroy", id))
+    formDelete.delete(route("admin.role.destroy", id))
   }
 }
 </script>
@@ -56,7 +56,7 @@ function destroy(id) {
       >
         <BaseButton
           v-if="can.delete"
-          :route-name="route('role.create')"
+          :route-name="route('admin.role.create')"
           :icon="mdiPlus"
           label="Add"
           color="info"
@@ -73,7 +73,7 @@ function destroy(id) {
         {{ $page.props.flash.message }}
       </NotificationBar>
       <CardBox class="mb-6" has-table>
-        <form @submit.prevent="form.get(route('role.index'))">
+        <form @submit.prevent="form.get(route('admin.role.index'))">
           <div class="py-2 flex">
             <div class="flex pl-4">
               <input
@@ -115,7 +115,7 @@ function destroy(id) {
             <tr v-for="role in roles.data" :key="role.id">
               <td data-label="Name">
                 <Link
-                  :href="route('role.show', role.id)"
+                  :href="route('admin.role.show', role.id)"
                   class="
                     no-underline
                     hover:underline
@@ -133,7 +133,7 @@ function destroy(id) {
                 <BaseButtons type="justify-start lg:justify-end" no-wrap>
                   <BaseButton
                     v-if="can.edit"
-                    :route-name="route('role.edit', role.id)"
+                    :route-name="route('admin.role.edit', role.id)"
                     color="info"
                     :icon="mdiSquareEditOutline"
                     small

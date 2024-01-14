@@ -37,7 +37,7 @@ const form = useForm({
         main
       >
         <BaseButton
-          :route-name="route('menu.index')"
+          :route-name="route('admin.menu.index')"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"
@@ -47,7 +47,7 @@ const form = useForm({
       </SectionTitleLineWithButton>
       <CardBox
         form
-        @submit.prevent="form.post(route('menu.update', props.menu.id))"
+        @submit.prevent="form.post(route('admin.menu.update', props.menu.id))"
       >
         <FormField
           label="Name"

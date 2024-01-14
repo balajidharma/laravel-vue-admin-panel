@@ -68,7 +68,7 @@ class CategoryController extends Controller
 
         $type->categories()->create($request->all());
 
-        return redirect()->route('category.type.item.index', $type->id)
+        return redirect()->route('admin.category.type.item.index', $type->id)
             ->with('message', 'Category created successfully.');
     }
 
@@ -101,7 +101,7 @@ class CategoryController extends Controller
 
         $item->update($request->all());
 
-        return redirect()->route('category.type.item.index', $type->id)
+        return redirect()->route('admin.category.type.item.index', $type->id)
             ->with('message', 'Category updated successfully.');
     }
 
@@ -115,7 +115,7 @@ class CategoryController extends Controller
     {
         $item->delete();
 
-        return redirect()->route('category.type.item.index', $type->id)
+        return redirect()->route('admin.category.type.item.index', $type->id)
             ->with('message', __('Category deleted successfully'));
     }
 }

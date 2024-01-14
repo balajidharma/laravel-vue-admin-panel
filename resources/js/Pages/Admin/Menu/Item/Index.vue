@@ -36,7 +36,7 @@ const formDelete = useForm({})
 
 function destroy(id) {
   if (confirm("Are you sure you want to delete?")) {
-    formDelete.delete(route("menu.item.destroy", {menu: props.menu.id, item: id}))
+    formDelete.delete(route("admin.menu.item.destroy", {menu: props.menu.id, item: id}))
   }
 }
 
@@ -53,7 +53,7 @@ function destroy(id) {
       >
         <BaseButtons type="justify-start lg:justify-end" no-wrap>
           <BaseButton
-            :route-name="route('menu.index')"
+            :route-name="route('admin.menu.index')"
             :icon="mdiArrowLeftBoldOutline"
             label="Back"
             color="white"
@@ -62,7 +62,7 @@ function destroy(id) {
           />
           <BaseButton
             v-if="can.delete"
-            :route-name="route('menu.item.create', menu.id)"
+            :route-name="route('admin.menu.item.create', menu.id)"
             :icon="mdiPlus"
             label="Add"
             color="info"

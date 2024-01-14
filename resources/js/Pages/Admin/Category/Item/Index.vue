@@ -34,7 +34,7 @@ const formDelete = useForm({})
 
 function destroy(id) {
   if (confirm("Are you sure you want to delete?")) {
-    formDelete.delete(route("category.type.item.destroy", {type: props.categoryType.id, item: id}))
+    formDelete.delete(route("admin.category.type.item.destroy", {type: props.categoryType.id, item: id}))
   }
 }
 
@@ -51,7 +51,7 @@ function destroy(id) {
       >
         <BaseButtons type="justify-start lg:justify-end" no-wrap>
           <BaseButton
-            :route-name="route('category.type.index')"
+            :route-name="route('admin.category.type.index')"
             :icon="mdiArrowLeftBoldOutline"
             label="Back"
             color="white"
@@ -60,7 +60,7 @@ function destroy(id) {
           />
           <BaseButton
             v-if="can.delete"
-            :route-name="route('category.type.item.create', categoryType.id)"
+            :route-name="route('admin.category.type.item.create', categoryType.id)"
             :icon="mdiPlus"
             label="Add"
             color="info"

@@ -45,7 +45,7 @@ const form = useForm({
         main
       >
         <BaseButton
-          :route-name="route('category.type.item.index', categoryType.id)"
+          :route-name="route('admin.category.type.item.index', categoryType.id)"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"
@@ -55,7 +55,7 @@ const form = useForm({
       </SectionTitleLineWithButton>
       <CardBox
         form
-        @submit.prevent="form.post(route('category.type.item.store', categoryType.id))"
+        @submit.prevent="form.post(route('admin.category.type.item.store', categoryType.id))"
       >
         <FormField
           label="Name"

@@ -47,7 +47,7 @@ const form = useForm({
         main
       >
         <BaseButton
-          :route-name="route('role.index')"
+          :route-name="route('admin.role.index')"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"
@@ -57,7 +57,7 @@ const form = useForm({
       </SectionTitleLineWithButton>
       <CardBox
         form
-        @submit.prevent="form.post(route('role.update', props.role.id))"
+        @submit.prevent="form.post(route('admin.role.update', props.role.id))"
       >
         <FormField
           label="Name"
