@@ -20,17 +20,17 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('admin.dashboard')">
                                     <BreezeApplicationLogo class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <BreezeNavLink :href="route('admin.dashboard')" :active="route().current('admin.dashboard')">
                                     Dashboard
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('permission.index')" :active="route().current('permission.index')">
+                                <BreezeNavLink :href="route('admin.permission.index')" :active="route().current('admin.permission.index')">
                                     Permissions
                                 </BreezeNavLink>
                             </div>

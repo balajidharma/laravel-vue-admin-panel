@@ -1,10 +1,16 @@
 <?php
 
+use Inertia\Inertia;
+
 Route::group([
     'namespace' => 'App\Http\Controllers\Admin',
     'prefix' => config('admin.prefix'),
     'middleware' => ['auth'],
+    'as' => 'admin.',
 ], function () {
+    Route::get('/', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');    
     Route::resource('user', 'UserController');
     Route::resource('role', 'RoleController');
     Route::resource('permission', 'PermissionController');
@@ -21,7 +27,7 @@ Route::group([
         ]);
         Route::resource('type.item', 'CategoryController');
     });
-    Route::get('edit-account-info', 'UserController@accountInfo')->name('admin.account.info');
-    Route::post('edit-account-info', 'UserController@accountInfoStore')->name('admin.account.info.store');
-    Route::post('change-password', 'UserController@changePasswordStore')->name('admin.account.password.store');
+    Route::get('edit-account-info', 'UserController@accountInfo')->name('account.info');
+    Route::post('edit-account-info', 'UserController@accountInfoStore')->name('account.info.store');
+    Route::post('change-password', 'UserController@changePasswordStore')->name('account.password.store');
 });

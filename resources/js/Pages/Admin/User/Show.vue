@@ -36,7 +36,7 @@ const props = defineProps({
         main
       >
         <BaseButton
-          :route-name="route('user.index')"
+          :route-name="route('admin.user.index')"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"

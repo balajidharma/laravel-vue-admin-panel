@@ -44,7 +44,7 @@ const passwordForm = useForm({
     <SectionMain>
       <SectionTitleLineWithButton :icon="mdiAccount" title="Profile" main>
         <BaseButton
-          :route-name="route('dashboard')"
+          :route-name="route('admin.dashboard')"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"

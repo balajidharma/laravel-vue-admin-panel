@@ -45,7 +45,7 @@ const props = defineProps({
         <BaseButtons type="justify-start lg:justify-end" no-wrap>
             <BaseButton
             v-if="can.edit"
-            :route-name="route('menu.item.edit', {menu: menu.id, item: item.id})"
+            :route-name="route('admin.menu.item.edit', {menu: menu.id, item: item.id})"
             color="info"
             :icon="mdiSquareEditOutline"
             small

@@ -30,7 +30,7 @@ export const useMainStore = defineStore('main', {
 
     fetch (sampleDataKey) {
       axios
-        .get(`data-sources/${sampleDataKey}.json`)
+        .get(`/data-sources/${sampleDataKey}.json`)
         .then(r => {
           if (r.data && r.data.data) {
             this[sampleDataKey] = r.data.data

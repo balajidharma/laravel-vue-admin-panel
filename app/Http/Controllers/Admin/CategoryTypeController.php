@@ -86,7 +86,7 @@ class CategoryTypeController extends Controller
             'is_flat' => $request->is_flat,
         ]);
 
-        return redirect()->route('category.type.index')
+        return redirect()->route('admin.category.type.index')
             ->with('message', 'Category type created successfully.');
     }
 
@@ -117,7 +117,7 @@ class CategoryTypeController extends Controller
 
         $type->update($request->all());
 
-        return redirect()->route('category.type.index')
+        return redirect()->route('admin.category.type.index')
             ->with('message', 'Category type updated successfully.');
     }
 
@@ -131,7 +131,7 @@ class CategoryTypeController extends Controller
     {
         $type->delete();
 
-        return redirect()->route('category.type.index')
+        return redirect()->route('admin.category.type.index')
             ->with('message', __('Category type deleted successfully'));
     }
 }

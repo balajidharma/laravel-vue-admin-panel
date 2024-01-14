@@ -85,7 +85,7 @@ class RoleController extends Controller
             $role->givePermissionTo($request->permissions);
         }
 
-        return redirect()->route('role.index')
+        return redirect()->route('admin.role.index')
             ->with('message', 'Role created successfully.');
     }
 
@@ -134,7 +134,7 @@ class RoleController extends Controller
         $permissions = $request->permissions ?? [];
         $role->syncPermissions($permissions);
 
-        return redirect()->route('role.index')
+        return redirect()->route('admin.role.index')
             ->with('message', 'Role updated successfully.');
     }
 
@@ -147,7 +147,7 @@ class RoleController extends Controller
     {
         $role->delete();
 
-        return redirect()->route('role.index')
+        return redirect()->route('admin.role.index')
             ->with('message', __('Role deleted successfully'));
     }
 }

@@ -46,7 +46,7 @@ const form = useForm({
         main
       >
         <BaseButton
-          :route-name="route('menu.item.index', menu.id)"
+          :route-name="route('admin.menu.item.index', menu.id)"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"
@@ -56,7 +56,7 @@ const form = useForm({
       </SectionTitleLineWithButton>
       <CardBox
         form
-        @submit.prevent="form.post(route('menu.item.store', menu.id))"
+        @submit.prevent="form.post(route('admin.menu.item.store', menu.id))"
       >
         <FormField
           label="Name"

@@ -36,7 +36,7 @@ const form = useForm({
         main
       >
         <BaseButton
-          :route-name="route('permission.index')"
+          :route-name="route('admin.permission.index')"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"
@@ -46,7 +46,7 @@ const form = useForm({
       </SectionTitleLineWithButton>
       <CardBox
         form
-        @submit.prevent="form.post(route('permission.update', props.permission.id))"
+        @submit.prevent="form.post(route('admin.permission.update', props.permission.id))"
       >
         <FormField
           label="Name"
