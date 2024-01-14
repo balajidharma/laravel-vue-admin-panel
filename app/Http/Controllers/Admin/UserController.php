@@ -10,9 +10,9 @@ use BalajiDharma\LaravelAdminCore\Actions\User\UpdateUser;
 use BalajiDharma\LaravelAdminCore\Requests\StoreUserRequest;
 use BalajiDharma\LaravelAdminCore\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -59,7 +59,7 @@ class UserController extends Controller
                 'create' => Auth::user()->can('user create'),
                 'edit' => Auth::user()->can('user edit'),
                 'delete' => Auth::user()->can('user delete'),
-            ]
+            ],
         ]);
     }
 
@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all()->pluck("name","id");
+        $roles = Role::all()->pluck('name', 'id');
 
         return Inertia::render('Admin/User/Create', [
             'roles' => $roles,
@@ -80,8 +80,6 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreUserRequest  $request
-     * @param  CreateUser  $createUser
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUserRequest $request, CreateUser $createUser)
@@ -89,18 +87,17 @@ class UserController extends Controller
         $createUser->handle((object) $request->all());
 
         return redirect()->route('user.index')
-                        ->with('message', __('User created successfully.'));
+            ->with('message', __('User created successfully.'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
      * @return \Inertia\Response
      */
     public function show(User $user)
     {
-        $roles = Role::all()->pluck("name","id");
+        $roles = Role::all()->pluck('name', 'id');
         $userHasRoles = array_column(json_decode($user->roles, true), 'id');
 
         return Inertia::render('Admin/User/Show', [
@@ -113,12 +110,11 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
      * @return \Inertia\Response
      */
     public function edit(User $user)
     {
-        $roles = Role::all()->pluck("name","id");
+        $roles = Role::all()->pluck('name', 'id');
         $userHasRoles = array_column(json_decode($user->roles, true), 'id');
 
         return Inertia::render('Admin/User/Edit', [
@@ -131,9 +127,6 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateUserRequest  $request
-     * @param  \App\Models\User  $user
-     * @param  UpdateUser  $updateUser
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateUserRequest $request, User $user, UpdateUser $updateUser)
@@ -141,13 +134,12 @@ class UserController extends Controller
         $updateUser->handle((object) $request->all(), $user);
 
         return redirect()->route('user.index')
-                        ->with('message', __('User updated successfully.'));
+            ->with('message', __('User updated successfully.'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(User $user)
@@ -155,7 +147,7 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('user.index')
-                        ->with('message', __('User deleted successfully'));
+            ->with('message', __('User deleted successfully'));
     }
 
     /**
@@ -175,7 +167,6 @@ class UserController extends Controller
     /**
      * Save the modified personal information for a user.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function accountInfoStore(Request $request)
@@ -199,7 +190,6 @@ class UserController extends Controller
     /**
      * Save the new password for a user.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function changePasswordStore(Request $request)

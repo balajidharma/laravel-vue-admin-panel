@@ -54,7 +54,7 @@ class RoleController extends Controller
                 'create' => Auth::user()->can('role create'),
                 'edit' => Auth::user()->can('role edit'),
                 'delete' => Auth::user()->can('role delete'),
-            ]
+            ],
         ]);
     }
 
@@ -65,7 +65,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::all()->pluck("name","id");
+        $permissions = Permission::all()->pluck('name', 'id');
 
         return Inertia::render('Admin/Role/Create', [
             'permissions' => $permissions,
@@ -75,7 +75,6 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreRoleRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreRoleRequest $request)
@@ -87,18 +86,17 @@ class RoleController extends Controller
         }
 
         return redirect()->route('role.index')
-                        ->with('message', 'Role created successfully.');
+            ->with('message', 'Role created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
      * @return \Inertia\Response
      */
     public function show(Role $role)
     {
-        $permissions = Permission::all()->pluck("name","id");
+        $permissions = Permission::all()->pluck('name', 'id');
         $roleHasPermissions = array_column(json_decode($role->permissions, true), 'id');
 
         return Inertia::render('Admin/Role/Show', [
@@ -111,12 +109,11 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
      * @return \Inertia\Response
      */
     public function edit(Role $role)
     {
-        $permissions = Permission::all()->pluck("name","id");
+        $permissions = Permission::all()->pluck('name', 'id');
         $roleHasPermissions = array_column(json_decode($role->permissions, true), 'id');
 
         return Inertia::render('Admin/Role/Edit', [
@@ -129,8 +126,6 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateRoleRequest  $request
-     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateRoleRequest $request, Role $role)
@@ -140,13 +135,12 @@ class RoleController extends Controller
         $role->syncPermissions($permissions);
 
         return redirect()->route('role.index')
-                        ->with('message', 'Role updated successfully.');
+            ->with('message', 'Role updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Role $role)
@@ -154,6 +148,6 @@ class RoleController extends Controller
         $role->delete();
 
         return redirect()->route('role.index')
-                        ->with('message', __('Role deleted successfully'));
+            ->with('message', __('Role deleted successfully'));
     }
 }

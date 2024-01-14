@@ -53,7 +53,7 @@ class PermissionController extends Controller
                 'create' => Auth::user()->can('permission create'),
                 'edit' => Auth::user()->can('permission edit'),
                 'delete' => Auth::user()->can('permission delete'),
-            ]
+            ],
         ]);
     }
 
@@ -70,7 +70,6 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StorePermissionRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StorePermissionRequest $request)
@@ -78,13 +77,12 @@ class PermissionController extends Controller
         Permission::create($request->all());
 
         return redirect()->route('permission.index')
-                        ->with('message', __('Permission created successfully.'));
+            ->with('message', __('Permission created successfully.'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Permission  $permission
      * @return \Inertia\Response
      */
     public function show(Permission $permission)
@@ -97,7 +95,6 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Permission  $permission
      * @return \Inertia\Response
      */
     public function edit(Permission $permission)
@@ -110,8 +107,6 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdatePermissionRequest  $request
-     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdatePermissionRequest $request, Permission $permission)
@@ -119,13 +114,12 @@ class PermissionController extends Controller
         $permission->update($request->all());
 
         return redirect()->route('permission.index')
-                        ->with('message', __('Permission updated successfully.'));
+            ->with('message', __('Permission updated successfully.'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Permission $permission)
@@ -133,6 +127,6 @@ class PermissionController extends Controller
         $permission->delete();
 
         return redirect()->route('permission.index')
-                        ->with('message', __('Permission deleted successfully'));
+            ->with('message', __('Permission deleted successfully'));
     }
 }
