@@ -38,7 +38,7 @@ const componentClass = computed(() => (
   ]
 ))
 
-const hasDropdown = computed(() => props.item.children)
+const hasDropdown = computed(() => props.item.children && props.item.children.length)
 
 const menuClick = event => {
   emit('menu-click', event, props.item)
