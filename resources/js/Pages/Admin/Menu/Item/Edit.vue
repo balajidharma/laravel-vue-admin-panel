@@ -13,6 +13,7 @@ import FormControl from '@/Components/FormControl.vue'
 import FormCheckRadioGroup from '@/Components/FormCheckRadioGroup.vue'
 import BaseButton from '@/Components/BaseButton.vue'
 import BaseButtons from '@/Components/BaseButtons.vue'
+import BaseDivider from '@/Components/BaseDivider.vue'
 
 const props = defineProps({
   menu: {
@@ -23,7 +24,15 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
-  item_options: {
+  itemOptions: {
+    type: Object,
+    default: () => ({}),
+  },
+  roles: {
+    type: Object,
+    default: () => ({}),
+  },
+  itemHasRoles: {
     type: Object,
     default: () => ({}),
   },
@@ -37,7 +46,8 @@ const form = useForm({
   description: props.item.description,
   enabled: props.item.enabled,
   parent_id: props.item.parent_id,
-  weight: props.item.weight
+  weight: props.item.weight,
+  roles: props.itemHasRoles
 })
 </script>
 
@@ -126,7 +136,7 @@ const form = useForm({
             type="select"
             placeholder="--ROOT--"
             :error="form.errors.parent_id"
-            :options="item_options"
+            :options="itemOptions"
           >
             <div class="text-red-400 text-sm" v-if="form.errors.parent_id">
               {{ form.errors.parent_id }}
@@ -151,6 +161,21 @@ const form = useForm({
             </div>
           </FormControl>
         </FormField>
+        
+        <BaseDivider />
+
+        <FormField
+          label="Roles"
+          wrap-body
+        >
+          <FormCheckRadioGroup
+            v-model="form.roles"
+            name="roles"
+            is-column
+            :options="props.roles"
+          />
+        </FormField>
+
         <template #footer>
           <BaseButtons>
             <BaseButton

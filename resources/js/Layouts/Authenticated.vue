@@ -79,7 +79,7 @@ const showingNavigationDropdown = ref(false);
                         <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </BreezeResponsiveNavLink>
-                        <BreezeResponsiveNavLink :href="route('permission.index')" :active="route().current('permission.index')">
+                        <BreezeResponsiveNavLink :href="route('admin.permission.index')" :active="route().current('admin.permission.index')">
                             Permissions
                         </BreezeResponsiveNavLink>
                     </div>

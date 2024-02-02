@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use BalajiDharma\LaravelAdminCore\Requests\StoreMenuItemRequest;
 use BalajiDharma\LaravelAdminCore\Requests\UpdateMenuItemRequest;
 use BalajiDharma\LaravelMenu\Models\Menu;
@@ -47,12 +48,10 @@ class MenuItemController extends Controller
      */
     public function create(Menu $menu)
     {
-        $item_options = MenuItem::selectOptions($menu->id, null, true);
+        $itemOptions = MenuItem::selectOptions($menu->id, null, true);
+        $roles = Role::all()->pluck('name', 'id');
 
-        return Inertia::render('Admin/Menu/Item/Create', [
-            'menu' => $menu,
-            'item_options' => $item_options,
-        ]);
+        return Inertia::render('Admin/Menu/Item/Create', compact('menu', 'itemOptions', 'roles'));
     }
 
     /**
@@ -62,7 +61,10 @@ class MenuItemController extends Controller
      */
     public function store(StoreMenuItemRequest $request, Menu $menu)
     {
-        $menu->menuItems()->create($request->all());
+        $menu->menuItems()->create($request->except(['roles']));
+
+        $roles = $request->roles ?? [];
+        $menu->assignRole($roles);
 
         return redirect()->route('admin.menu.item.index', $menu->id)
             ->with('message', 'Menu created successfully.');
@@ -75,13 +77,11 @@ class MenuItemController extends Controller
      */
     public function edit(Menu $menu, MenuItem $item)
     {
-        $item_options = MenuItem::selectOptions($menu->id, $item->parent_id ?? $item->id);
+        $itemOptions = MenuItem::selectOptions($menu->id, $item->parent_id ?? $item->id);
+        $roles = Role::all()->pluck('name', 'id');
+        $itemHasRoles = array_column(json_decode($item->roles, true), 'id');
 
-        return Inertia::render('Admin/Menu/Item/Edit', [
-            'menu' => $menu,
-            'item' => $item,
-            'item_options' => $item_options,
-        ]);
+        return Inertia::render('Admin/Menu/Item/Edit', compact('menu', 'item', 'itemOptions', 'roles', 'itemHasRoles'));
     }
 
     /**
@@ -91,7 +91,10 @@ class MenuItemController extends Controller
      */
     public function update(UpdateMenuItemRequest $request, Menu $menu, MenuItem $item)
     {
-        $item->update($request->all());
+        $item->update($request->except(['roles']));
+
+        $roles = $request->roles ?? [];
+        $item->syncRoles($roles);
 
         return redirect()->route('admin.menu.item.index', $menu->id)
             ->with('message', 'Menu Item updated successfully.');
