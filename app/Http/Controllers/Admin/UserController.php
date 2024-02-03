@@ -50,7 +50,9 @@ class UserController extends Controller
             $users->latest();
         }
 
-        $users = $users->paginate(5)->onEachSide(2)->appends(request()->query());
+        $users = $users->paginate(config('admin.paginate.per_page'))
+                    ->onEachSide(config('admin.paginate.each_side'))
+                    ->appends(request()->query());
 
         return Inertia::render('Admin/User/Index', [
             'users' => $users,

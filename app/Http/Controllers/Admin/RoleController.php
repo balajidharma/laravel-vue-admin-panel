@@ -45,7 +45,9 @@ class RoleController extends Controller
             $roles->latest();
         }
 
-        $roles = $roles->paginate(5)->onEachSide(2)->appends(request()->query());
+        $roles = $roles->paginate(config('admin.paginate.per_page'))
+                    ->onEachSide(config('admin.paginate.each_side'))
+                    ->appends(request()->query());
 
         return Inertia::render('Admin/Role/Index', [
             'roles' => $roles,
