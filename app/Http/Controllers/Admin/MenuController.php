@@ -44,7 +44,9 @@ class MenuController extends Controller
             $menus->latest();
         }
 
-        $menus = $menus->paginate(5)->onEachSide(2)->appends(request()->query());
+        $menus = $menus->paginate(config('admin.paginate.per_page'))
+                    ->onEachSide(config('admin.paginate.each_side'))
+                    ->appends(request()->query());
 
         return Inertia::render('Admin/Menu/Index', [
             'menus' => $menus,
