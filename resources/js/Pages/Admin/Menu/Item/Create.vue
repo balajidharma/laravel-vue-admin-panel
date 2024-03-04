@@ -37,6 +37,7 @@ const form = useForm({
   enabled: true,
   parent_id: '',
   weight: '',
+  icon: '',
   roles: []
 })
 
@@ -149,6 +150,21 @@ const form = useForm({
           >
             <div class="text-red-400 text-sm" v-if="form.errors.weight">
               {{ form.errors.weight }}
+            </div>
+          </FormControl>
+        </FormField>
+        <FormField
+          label="Icon"
+          :class="{ 'text-red-400': form.errors.icon }"
+        >
+          <FormControl
+            v-model="form.icon"
+            type="text"
+            placeholder="Enter Icon Path"
+            :error="form.errors.icon"
+          >
+            <div class="text-red-400 text-sm" v-if="form.errors.icon">
+              {{ form.errors.icon }}
             </div>
           </FormControl>
         </FormField>

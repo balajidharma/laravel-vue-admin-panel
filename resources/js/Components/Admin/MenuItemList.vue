@@ -2,6 +2,7 @@
 import { Link } from "@inertiajs/vue3"
 import BaseButton from "@/Components/BaseButton.vue"
 import BaseButtons from "@/Components/BaseButtons.vue"
+import BaseIcon from '@/Components/BaseIcon.vue'
 import {
   mdiSquareEditOutline,
   mdiTrashCan,
@@ -30,7 +31,17 @@ const props = defineProps({
 <template>
     <tr :key="item.id">
         <td data-label="Name">
-            <div :style="{ 'margin-left': level*20 + 'px' }">{{ item.name }}</div>
+            <div :style="{ 'margin-left': level*20 + 'px' }">
+              <BaseIcon
+                v-if="item.icon"
+                :path="item.icon"
+                class="flex-none"
+                :class="activeInactiveStyle"
+                w="w-16"
+                :size="18"
+              />
+              {{ item.name }}
+            </div>
         </td>
         <td data-label="Description">
             {{ item.description }}
