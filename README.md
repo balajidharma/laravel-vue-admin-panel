@@ -7,7 +7,7 @@
 </p>
 
 ## Built with
-- [Laravel 10](https://github.com/laravel/framework)
+- [Laravel 11](https://github.com/laravel/framework)
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission)
 - [Laravel Breeze](https://github.com/laravel/breeze)
 - [balajidharma/laravel-menu](https://github.com/balajidharma/laravel-menu)
